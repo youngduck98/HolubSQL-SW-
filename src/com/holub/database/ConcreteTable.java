@@ -457,6 +457,11 @@ import com.holub.tools.ArrayIterator;
 		allTables[0] = this;
 		System.arraycopy(otherTables, 0, allTables, 1, otherTables.length);
 
+		//kyd test
+		if(requestedColumns == null){
+			requestedColumns = (String[])columnNames.clone();
+		}
+
 		// Create places to hold the result of the join and to hold
 		// iterators for each table involved in the join.
 
