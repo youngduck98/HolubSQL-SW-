@@ -4,6 +4,10 @@ import java.util.Collection;
 
 public class UnInsertable extends GrantDecorator{
 
+    public UnInsertable(Table wrapped) {
+        this.wrapped = wrapped;
+    }
+
     private final void illegal()    {
         throw new UnsupportedOperationException();
     }
