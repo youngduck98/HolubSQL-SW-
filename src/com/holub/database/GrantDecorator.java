@@ -108,6 +108,10 @@ public abstract class GrantDecorator implements Table {
         return wrapped;
     }
 
+    public void  export(Table.Exporter exporter) throws IOException {
+        wrapped.export(exporter);
+    }
+
     public String toString() {
         return wrapped.toString();
     }
