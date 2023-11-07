@@ -4,6 +4,10 @@ import java.util.Collection;
 
 public class UnSelectable extends GrantDecorator{
 
+    public UnSelectable(Table wrapped){
+        this.wrapped = wrapped;
+    }
+
     private final void illegal()    {
         throw new UnsupportedOperationException();
     }
