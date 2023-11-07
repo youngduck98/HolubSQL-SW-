@@ -2,6 +2,10 @@ package com.holub.database;
 
 public class UnDeletable extends GrantDecorator{
 
+    public UnDeletable(Table wrapped) {
+        this.wrapped = wrapped;
+    }
+
     private final void illegal()    {
         throw new UnsupportedOperationException();
     }
