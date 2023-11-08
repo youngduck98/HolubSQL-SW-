@@ -29,6 +29,8 @@ package com.holub.database;
 import java.io.*;
 import java.util.*;
 import com.holub.tools.ArrayIterator;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * A concrete implementation of the {@link Table} interface that implements an
@@ -691,6 +693,12 @@ import com.holub.tools.ArrayIterator;
 			} catch (Throwable t) {
 				report(t, "Undo");
 			}
+			// Grant test 추가
+			try {
+				testGrant();
+			} catch (Throwable t) {
+				report(t, "Grant");
+			}
 		}
 
 		public void testInsert() {
@@ -930,6 +938,73 @@ import com.holub.tools.ArrayIterator;
 			people.rollback(Table.THIS_LEVEL);
 			System.out.println(people.toString());
 		}
+
+		// GrantDecorator Test
+		public void testGrant() throws CloneNotSupportedException {
+			System.out.println("GrantTest");
+			System.out.println(people);
+			System.out.println(address);
+
+			// UnSelectable test
+			Table unSelectablePeople = new UnSelectable((Table) people.clone());
+			Selector flintstoneSelector = new Selector.Adapter() {
+				public boolean approve(Cursor[] tables) {
+					return tables[0].column("last").equals("Flintstone");
+				}
+			};
+			assertThrows(UnsupportedOperationException.class, () ->
+					unSelectablePeople.select(flintstoneSelector));
+
+			// UnDeletable test
+			Table unDeletablePeople = new UnDeletable(people);
+			Selector wilmaSelector = new Selector.Adapter() {
+				public boolean approve(Cursor[] tables) {
+					return tables[0].column("first").equals("Wilma");
+				}
+			};
+			assertThrows(UnsupportedOperationException.class, () ->
+					unDeletablePeople.delete(wilmaSelector));
+
+			// UnUpdatable test
+			Table unUpdatablePeople = new UnUpdatable(people);
+			Selector allenToTESTUpdater = new Selector.Adapter() {
+				public boolean approve(Cursor[] tables) {
+					return tables[0].column("first").equals("Allen");
+				}
+				public void modify(Cursor current) {
+					current.update("first", "TEST");
+				}
+			};
+			assertThrows(UnsupportedOperationException.class, () ->
+					unUpdatablePeople.update(allenToTESTUpdater));
+
+			// UnInsertable test
+			Table unInsertablePeople = new UnInsertable(people);
+			assertThrows(UnsupportedOperationException.class, () ->
+					unInsertablePeople.insert(new Object[] { "Test", "First", "999" }));
+
+			// NotAll test
+			Table notAll = new NotAll(people);
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.insert(new Object[] {"Not", "All", "444"}));
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.select(flintstoneSelector));
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.update(allenToTESTUpdater));
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.delete(wilmaSelector));
+
+			// UnSelectable and UnInsertable test
+			Table unTable = new UnSelectable(new UnInsertable(people));
+			assertThrows(UnsupportedOperationException.class, () ->
+					unTable.insert(new Object[] { "Test", "First", "999" }));
+			assertThrows(UnsupportedOperationException.class, () ->
+					unTable.select(flintstoneSelector));
+			unTable.update(allenToTESTUpdater);
+			System.out.println(people);
+
+		}
+
 
 		public void print(Table t) { // tests the table iterator
 			Cursor current = t.rows();
