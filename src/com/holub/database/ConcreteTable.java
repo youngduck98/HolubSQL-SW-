@@ -983,6 +983,17 @@ import static org.junit.Assert.*;
 			assertThrows(UnsupportedOperationException.class, () ->
 					unInsertablePeople.insert(new Object[] { "Test", "First", "999" }));
 
+			// NotAll test
+			Table notAll = new NotAll(people);
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.insert(new Object[] {"Not", "All", "444"}));
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.select(flintstoneSelector));
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.update(allenToTESTUpdater));
+			assertThrows(UnsupportedOperationException.class, () ->
+					notAll.delete(wilmaSelector));
+
 			// UnSelectable and UnInsertable test
 			Table unTable = new UnSelectable(new UnInsertable(people));
 			assertThrows(UnsupportedOperationException.class, () ->
