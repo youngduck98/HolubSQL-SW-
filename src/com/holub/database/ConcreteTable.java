@@ -71,7 +71,7 @@ import static org.junit.Assert.*;
 
 	/**********************************************************************
 	 * Create a table with the given name and columns.
-	 * 
+	 *
 	 * @param tableName the name of the table.
 	 * @param an        array of Strings that specify the column names.
 	 */
@@ -516,7 +516,7 @@ import static org.junit.Assert.*;
 
 	/**
 	 * Insert an approved row into the result table:
-	 * 
+	 *
 	 * <PRE>
 	 * 		for( every requested column )
 	 * 			for( every table in the join )
@@ -524,7 +524,7 @@ import static org.junit.Assert.*;
 	 * 					add the associated value to the result table
 	 *
 	 * </PRE>
-	 * 
+	 *
 	 * Only one column with a given name is added, even if that column appears in
 	 * multiple tables. Columns in tables at the beginning of the list take
 	 * precedence over identically named columns that occur later in the list.
@@ -549,7 +549,7 @@ import static org.junit.Assert.*;
 	 * A collection variant on the array version. Just converts the collection to an
 	 * array and then chains to the other version
 	 * ({@linkplain #select(Selector,String[],Table[]) see}).
-	 * 
+	 *
 	 * @param requestedColumns the value returned from the {@link #toString} method
 	 *                         of the elements of this collection are used as the
 	 *                         column names.
@@ -658,6 +658,8 @@ import static org.junit.Assert.*;
 		}
 
 		public void test() {
+            String fileName = "people";
+            String fileExtension = "json";
 			try {
 				testInsert();
 			} catch (Throwable t) {
@@ -679,7 +681,7 @@ import static org.junit.Assert.*;
 				report(t, "Select");
 			}
 			try {
-				testStore();
+				testStore(fileName, fileExtension);
 			} catch (Throwable t) {
 				report(t, "Store/Load");
 			}
@@ -816,13 +818,13 @@ import static org.junit.Assert.*;
 				/* it failed correctly */ }
 		}
 
-		public void testStore() throws IOException, ClassNotFoundException { // Flush the table to disk, then reread it.
+		public void testStore(String fileName, String fileExtension) throws IOException, ClassNotFoundException { // Flush the table to disk, then reread it.
 																				// Subsequent tests that use the
 																				// "people" table will
 																				// fail if this operation fails.
 
-			Writer out = new FileWriter("people");
-			people.export(new CSVExporter(out));
+            Writer out = new FileWriter(fileName + "." + fileExtension);
+			people.export(new JSONExporter(out));
 			out.close();
 
 			Reader in = new FileReader("people");

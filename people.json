@@ -1,0 +1,15 @@
+{
+  "tableName": "people",
+  "columns": ["last", "first", "addrId"],
+  "data": [
+{
+      "cell": "Holub",       "cell": "Allen",       "cell": "1"
+},
+{
+      "cell": "Flintstone",       "cell": "Wilma",       "cell": "2"
+},
+{
+      "cell": "Flintstone",       "cell": "Fred",       "cell": "2"
+}
+  ]
+}
