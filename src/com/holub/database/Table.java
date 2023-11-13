@@ -253,7 +253,7 @@ public interface Table extends Serializable, Cloneable
 	 */
 	void export( Table.Exporter importer ) throws IOException;
 
-	/******************************************************************* 
+	/*******************************************************************
 	 * Used for exporting tables in various formats. Note that
 	 *  I can add methods to this interface if the representation
 	 *  requires it without impacting the Table's clients at all.
@@ -269,7 +269,7 @@ public interface Table extends Serializable, Cloneable
 		public void endTable()			 	throws IOException;
 	}
 
-	/******************************************************************* 
+	/*******************************************************************
 	 *  Used for importing tables in various formats.
 	 *  Methods are called in the following order:
 	 *  <ul>

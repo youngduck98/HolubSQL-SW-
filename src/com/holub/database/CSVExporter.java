@@ -63,7 +63,6 @@ import java.util.*;
 public class CSVExporter implements Table.Exporter
 {	private final Writer out;
 	private 	  int	 width;
-
 	public CSVExporter( Writer out )
 	{	this.out = out;
 	}
@@ -87,7 +86,7 @@ public class CSVExporter implements Table.Exporter
 			// Null columns are represented by an empty field
 			// (two commas in a row). There's nothing to write
 			// if the column data is null.
-			if( datum != null )	
+			if( datum != null )
 				out.write( datum.toString() );
 
 			if( --i > 0 )
