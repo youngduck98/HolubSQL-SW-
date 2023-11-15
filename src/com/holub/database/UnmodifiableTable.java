@@ -98,7 +98,7 @@ public class UnmodifiableTable implements Table
 	{	return wrapped.select(w, r);
 	}
 	public Table applyAggregation(List<AggregationFunction> aggregations) {
-		return ((ConcreteTable)this.extract().applyAggregation(aggregations));
+		return ((ConcreteTable)wrapped.applyAggregation(aggregations));
 	}
 	public Cursor rows()
 	{	return wrapped.rows();
