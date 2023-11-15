@@ -245,6 +245,11 @@ public interface Table extends Serializable, Cloneable
 	//create table by appling aggregation functions in List to base table and return it
 	Table applyAggregation(List<AggregationFunction> aggregations);
 
+	/**
+	 * visitor pattern's accept method
+	 */
+	void accept(TableVisitor visitor);
+
 	/** Return an iterator across the rows of the current table.
 	 */
 	Cursor rows();
