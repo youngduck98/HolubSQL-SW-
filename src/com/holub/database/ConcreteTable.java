@@ -618,8 +618,8 @@ import static org.junit.Assert.*;
 	}
 
 	@Override
-	public void accept(TableVisitor visitor) {
-		visitor.visit(this);
+	public Table accept(TableVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 	public List<List<Object>> makeTableToList(){

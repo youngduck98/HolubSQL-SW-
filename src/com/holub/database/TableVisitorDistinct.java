@@ -4,27 +4,30 @@ import java.util.*;
 
 public class TableVisitorDistinct implements TableVisitor{
     @Override
-    public void visit(ConcreteTable table) {
+    public Table visit(ConcreteTable table) {
         HashSet<String> duplicated = new HashSet<>();
 
         Cursor cursor = table.rows();
+        Table ret = TableFactory.create(null, table.getColumnNames());
 
         while(cursor.advance()){
             Iterator colIter = cursor.columns();
-            StringBuilder row = new StringBuilder();
+            List<Object> row = new ArrayList<>();
             while(colIter.hasNext()){
-                row.append(colIter.next());
+                row.add(colIter.next());
             }
             if(duplicated.contains(row)) {
-                colIter.remove();
                 continue;
             }
             duplicated.add(row.toString());
+            ret.insert(row);
         }
+
+        return ret;
     }
 
     @Override
-    public void visit(UnmodifiableTable table) {
-        visit((ConcreteTable)table.extract());
+    public Table visit(UnmodifiableTable table) {
+        return visit((ConcreteTable)table.extract());
     }
 }

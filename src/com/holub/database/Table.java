@@ -248,7 +248,7 @@ public interface Table extends Serializable, Cloneable
 	/**
 	 * visitor pattern's accept method
 	 */
-	void accept(TableVisitor visitor);
+	Table accept(TableVisitor visitor);
 
 	/** Return an iterator across the rows of the current table.
 	 */

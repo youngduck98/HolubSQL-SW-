@@ -102,8 +102,8 @@ public class UnmodifiableTable implements Table
 	}
 
 	@Override
-	public void accept(TableVisitor visitor) {
-		wrapped.accept(visitor);
+	public Table accept(TableVisitor visitor) {
+		return wrapped.accept(visitor);
 	}
 
 	public Cursor rows()
