@@ -28,6 +28,8 @@ public class Max implements AggregationFunction {
                 continue;
             }
             if(max.getClass() != value.getClass()) {
+                TypeCheck.checkNumber(max, "");
+                TypeCheck.checkNumber(value, "");
                 max = Double.valueOf(max.toString());
                 value = Double.valueOf(value.toString());
             }
