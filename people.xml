@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table><tableName>people</tableName><columns><column>last</column><column>first</column><column>addrId</column></columns><row><cell>Holub</cell>	<cell>Allen</cell>	<cell>1</cell></row><row><cell>Flintstone</cell>	<cell>Wilma</cell>	<cell>2</cell></row><row><cell>Flintstone</cell>	<cell>Fred</cell>	<cell>2</cell></row></table>
