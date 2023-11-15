@@ -659,7 +659,7 @@ import static org.junit.Assert.*;
 
 		public void test() {
             String fileName = "people";
-            String fileExtension = "csv";
+            String fileExtension = "json";
 			try {
 				testInsert();
 			} catch (Throwable t) {
@@ -824,11 +824,11 @@ import static org.junit.Assert.*;
 																				// fail if this operation fails.
 
             Writer out = new FileWriter(fileName + "." + fileExtension);
-			people.export(new CSVExporter(out));
+			people.export(new JSONExporter(out));
 			out.close();
 
-			Reader in = new FileReader("people.xml");
-			people = new ConcreteTable(new XMLImporter(in));
+			Reader in = new FileReader("people");
+			people = new ConcreteTable(new CSVImporter(in));
 			in.close();
 		}
 
