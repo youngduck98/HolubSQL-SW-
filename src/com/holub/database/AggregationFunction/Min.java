@@ -27,6 +27,8 @@ public class Min implements AggregationFunction {
                 continue;
             }
             if(min.getClass() != value.getClass()) {
+                TypeCheck.checkNumber(min, "");
+                TypeCheck.checkNumber(value, "");
                 min = Double.valueOf(min.toString());
                 value = Double.valueOf(value.toString());
             }

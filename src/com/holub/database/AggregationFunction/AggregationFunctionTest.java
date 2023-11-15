@@ -64,11 +64,21 @@ public class AggregationFunctionTest {
     }
 
     @Test
-    public void MaxInvaildInput(){
+    public void MaxInvaildInputObject(){
         List<Object> a = new ArrayList<>();
         AggregationFunction fuc = new Min();
         AggregationFunction max = new Max();
         a.add(fuc);
+        assertThatThrownBy(() ->
+                max.calculateValue(a)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void MaxInvaildInputIncompatible(){
+        List<Object> a = new ArrayList<>();
+        AggregationFunction max = new Max();
+        a.add("a");
+        a.add(1);
         assertThatThrownBy(() ->
                 max.calculateValue(a)).isInstanceOf(IllegalArgumentException.class);
     }
@@ -92,11 +102,21 @@ public class AggregationFunctionTest {
     }
 
     @Test
-    public void MinInvaildInput(){
+    public void MinInvaildInputObject(){
         List<Object> a = new ArrayList<>();
         AggregationFunction fuc = new Max();
         AggregationFunction max = new Min();
         a.add(fuc);
+        assertThatThrownBy(() ->
+                max.calculateValue(a)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void minInvaildInputIncompatible(){
+        List<Object> a = new ArrayList<>();
+        AggregationFunction max = new Min();
+        a.add("a");
+        a.add(1);
         assertThatThrownBy(() ->
                 max.calculateValue(a)).isInstanceOf(IllegalArgumentException.class);
     }
