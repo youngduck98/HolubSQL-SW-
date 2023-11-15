@@ -5,7 +5,7 @@ import java.util.*;
 public class TableVisitorDistinct implements TableVisitor{
     @Override
     public Table visit(ConcreteTable table) {
-        HashSet<String> duplicated = new HashSet<>();
+        HashSet<List<Object>> duplicated = new HashSet<>();
 
         Cursor cursor = table.rows();
         Table ret = TableFactory.create(null, table.getColumnNames());
@@ -19,7 +19,7 @@ public class TableVisitorDistinct implements TableVisitor{
             if(duplicated.contains(row)) {
                 continue;
             }
-            duplicated.add(row.toString());
+            duplicated.add(row);
             ret.insert(row);
         }
 
