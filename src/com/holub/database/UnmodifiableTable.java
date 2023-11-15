@@ -98,8 +98,14 @@ public class UnmodifiableTable implements Table
 	{	return wrapped.select(w, r);
 	}
 	public Table applyAggregation(List<AggregationFunction> aggregations) {
-		return ((ConcreteTable)wrapped.applyAggregation(aggregations));
+		return wrapped.applyAggregation(aggregations);
 	}
+
+	@Override
+	public void accept(TableVisitor visitor) {
+		wrapped.accept(visitor);
+	}
+
 	public Cursor rows()
 	{	return wrapped.rows();
 	}
