@@ -617,6 +617,11 @@ import static org.junit.Assert.*;
 		return ret;
 	}
 
+	@Override
+	public Table accept(TableVisitor visitor) {
+		return visitor.visit(this);
+	}
+
 	public List<List<Object>> makeTableToList(){
 		Cursor cursor = rows();
 		List<List<Object>> ret = new ArrayList<>();

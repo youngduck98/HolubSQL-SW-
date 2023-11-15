@@ -107,6 +107,12 @@ public abstract class GrantDecorator implements Table {
     public Table applyAggregation(List<AggregationFunction> aggregations) {
         return (wrapped.applyAggregation(aggregations));
     }
+
+    @Override
+    public Table accept(TableVisitor visitor){
+        return wrapped.accept(visitor);
+    }
+
     @Override
     public Cursor rows() {
         return wrapped.rows();
