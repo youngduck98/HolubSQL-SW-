@@ -1,7 +1,11 @@
 package com.holub.database;
 
+import com.holub.database.AggregationFunction.AggregationFunction;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class GrantDecorator implements Table {
 
@@ -99,6 +103,10 @@ public abstract class GrantDecorator implements Table {
         return wrapped.select(where, requestedColumns);
     }
 
+    @Override
+    public Table applyAggregation(List<AggregationFunction> aggregations) {
+        return ((ConcreteTable)wrapped.applyAggregation(aggregations));
+    }
     @Override
     public Cursor rows() {
         return wrapped.rows();
