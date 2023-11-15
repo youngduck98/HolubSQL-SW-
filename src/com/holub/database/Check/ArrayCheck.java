@@ -11,4 +11,10 @@ public class ArrayCheck {
             }
         }
     }
+
+    public static void checkNumArray(Object[] arr1, String msg){
+        if(!(arr1 instanceof Number[])) {
+            throw new IllegalArgumentException("not num array " + msg + arr1.getClass().toString());
+        }
+    }
 }
