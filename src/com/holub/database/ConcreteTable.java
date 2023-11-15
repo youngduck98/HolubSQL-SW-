@@ -28,6 +28,8 @@ package com.holub.database;
 
 import java.io.*;
 import java.util.*;
+
+import com.holub.database.AggregationFunction.AggregationFunction;
 import com.holub.tools.ArrayIterator;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -587,6 +589,53 @@ import static org.junit.Assert.*;
 		return select(where, requestedColumns, null);
 	}
 
+	@Override
+	public Table applyAggregation(List<AggregationFunction> aggregations) {
+		if(aggregations.size() != columnNames.length) {
+			System.out.println(aggregations.size() + " " + columnNames.length);
+			throw new IllegalStateException();
+		}
+
+		String[] newColName = new String[columnNames.length];
+		Object[] aggregatedValue = new Object[columnNames.length];
+
+		for(int i=0;i<aggregations.size();i++)
+			newColName[i] = aggregations.get(i).convertColName(columnNames[i]);
+		Table ret = new ConcreteTable(null, newColName);
+
+		List<List<Object>> tableMap = makeTableToList();
+
+		for(int colIndex=0;colIndex<newColName.length;colIndex++){
+			List<Object> selectedCol = new ArrayList<>();
+			for(int rowIndex=0;rowIndex<tableMap.size();rowIndex++){
+				selectedCol.add(tableMap.get(rowIndex).get(colIndex));
+			}
+			aggregatedValue[colIndex] = aggregations.get(colIndex).calculateValue(selectedCol);
+		}
+		ret.insert(aggregatedValue);
+
+		return ret;
+	}
+
+	public List<List<Object>> makeTableToList(){
+		Cursor cursor = rows();
+		List<List<Object>> ret = new ArrayList<>();
+
+		while(cursor.advance()){
+			List<Object> row = new ArrayList<>();
+			Iterator colIterator = cursor.columns();
+			while(colIterator.hasNext()){
+				row.add(colIterator.next());
+			}
+			ret.add(row);
+		}
+		return ret;
+	}
+
+	public String[] getColumnNames(){
+		return columnNames;
+	}
+
 	// @select-end
 	// ----------------------------------------------------------------------
 	// Housekeeping stuff
@@ -640,6 +689,7 @@ import static org.junit.Assert.*;
 		}
 		return out.toString();
 	}
+
 
 	// ----------------------------------------------------------------------
 	public final static class Test {
