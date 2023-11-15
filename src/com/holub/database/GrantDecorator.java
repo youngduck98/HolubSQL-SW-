@@ -105,7 +105,7 @@ public abstract class GrantDecorator implements Table {
 
     @Override
     public Table applyAggregation(List<AggregationFunction> aggregations) {
-        return ((ConcreteTable)wrapped.applyAggregation(aggregations));
+        return (wrapped.applyAggregation(aggregations));
     }
     @Override
     public Cursor rows() {
