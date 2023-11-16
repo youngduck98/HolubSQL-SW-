@@ -11,7 +11,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ConcreteTableCustomTest {
+public class ConcreteTableAggregationTest {
     Random random = new Random();
     String[] baseColumName = {"a", "b", "c"};
     int dataNum = 5;
