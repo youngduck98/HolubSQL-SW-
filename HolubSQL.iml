@@ -12,7 +12,7 @@
     <orderEntry type="library" name="junit.vintage.engine" level="project" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="junit.platform.commons" level="project" />
-    <orderEntry type="library" name="assertj.core" level="project" />
     <orderEntry type="library" name="holobProject" level="project" />
+    <orderEntry type="library" name="assertj.core" level="project" />
   </component>
 </module>
