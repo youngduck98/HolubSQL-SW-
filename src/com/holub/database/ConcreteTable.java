@@ -461,7 +461,10 @@ import static org.junit.Assert.*;
 
 		//kyd test
 		if(requestedColumns == null){
-			requestedColumns = (String[])columnNames.clone();
+			Set<String> newColSet = new LinkedHashSet<>();
+			for(Table table:allTables)
+				newColSet.addAll(Arrays.asList(((ConcreteTable) table).columnNames));
+			requestedColumns = newColSet.toArray(new String[0]);
 		}
 
 		// Create places to hold the result of the join and to hold
