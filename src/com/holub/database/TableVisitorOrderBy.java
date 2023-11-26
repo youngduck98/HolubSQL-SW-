@@ -7,22 +7,20 @@ import java.util.*;
 
 public class TableVisitorOrderBy implements TableVisitor{
     public String[] colnames;
+    public int[] inputAsc;
     public int[] asc;
-    public int nowIndex;
 
     public TableVisitorOrderBy(String[] colname, int[] asc){
         this.colnames = colname;
-        this.asc = asc;
-        nowIndex = 0;
-        RowComparator.colNames = colnames;
-        RowComparator.asc = asc;
+        this.inputAsc = asc;
     }
 
-    public static class RowComparator implements Comparator<List<Object>>{
-        static String[] colNames;
-        static int[] asc;
-        static int nowIndex = 0;
+    public class RowComparator implements Comparator<List<Object>>{
+        int nowIndex;
 
+        public RowComparator(int nowIndex){
+            this.nowIndex = nowIndex;
+        }
         @Override
         public int compare(List<Object> list1, List<Object> list2) {
             if(list1.get(nowIndex) == null)
@@ -52,11 +50,11 @@ public class TableVisitorOrderBy implements TableVisitor{
     @Override
     public Table visit(ConcreteTable table) {
         List<List<Object>> map = table.makeTableToList();
-
-        for(String colName: colnames){
-            RowComparator.nowIndex = findIndex(colName, table.getColumnNames());
-            System.out.println(RowComparator.nowIndex + " " + findIndex(colName, table.getColumnNames()));
-            Collections.sort(map, new RowComparator());
+        asc = new int[table.getColumnNames().length];
+        for(int i=0;i<colnames.length;i++){
+            int nowIndex = findIndex(colnames[i], table.getColumnNames());
+            asc[nowIndex] = inputAsc[i];
+            Collections.sort(map, new RowComparator(nowIndex));
         }
 
         Table ret = TableFactory.create("distinct", table.getColumnNames());

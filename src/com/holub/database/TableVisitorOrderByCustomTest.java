@@ -19,8 +19,8 @@ public class TableVisitorOrderByCustomTest {
     public void functionTestWithRandom(){
         Table table = TableUtil.getAlreadyMakedIntegerTable(null, baseColName, 5);
         TableUtil.showTableData((ConcreteTable) table);
-        String[] colName = new String[]{"bbb, aaa"};
-        Table testTable = table.accept(new TableVisitorOrderBy(colName, new int[]{-1, -1, -1}));
+        String[] colName = new String[]{"bbb", "aaa"};
+        Table testTable = table.accept(new TableVisitorOrderBy(colName, new int[]{-1, -1}));
         TableUtil.showTableData((ConcreteTable) testTable);
     }
 
@@ -29,8 +29,8 @@ public class TableVisitorOrderByCustomTest {
         Table table = TableUtil.getAlreadyMakedIntegerTable(null, baseColName, 5);
         table.insert(new Object[]{1, 1, null});
         TableUtil.showTableData((ConcreteTable) table);
-        String[] colName = new String[]{"bbb", "ccc"};
-        Table testTable = table.accept(new TableVisitorOrderBy(colName, new int[]{0, 1, 1}));
+        String[] colName = new String[]{"bbb"};
+        Table testTable = table.accept(new TableVisitorOrderBy(colName, new int[]{1}));
         TableUtil.showTableData((ConcreteTable) testTable);
     }
 }
