@@ -73,4 +73,15 @@ public class TableUtil {
         }
         return ret;
     }
+
+    public static int findIndex(String colName, String[] colNames){
+        int i=0;
+        for(String value: colNames){
+            if(value.equals(colName))
+                return i;
+            i++;
+        }
+        System.out.println(colName);
+        throw new IllegalArgumentException("no name colName like that");
+    }
 }

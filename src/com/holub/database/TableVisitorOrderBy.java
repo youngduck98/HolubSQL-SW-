@@ -37,22 +37,11 @@ public class TableVisitorOrderBy implements TableVisitor{
         }
     }
 
-    public int findIndex(String colName, String[] colNames){
-        int i=0;
-        for(String value: colNames){
-            if(value.equals(colName))
-                return i;
-            i++;
-        }
-        System.out.println(colName);
-        throw new IllegalArgumentException("no name colName like that");
-    }
-
     @Override
     public Table visit(ConcreteTable table) {
         List<List<Object>> map = table.makeTableToList();
         for(int i=0;i<colnames.length;i++){
-            int nowIndex = findIndex(colnames[i], table.getColumnNames());
+            int nowIndex = TableUtil.findIndex(colnames[i], table.getColumnNames());
             Collections.sort(map, new RowComparator(nowIndex, inputAsc[i]));
         }
 
