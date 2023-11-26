@@ -35,7 +35,7 @@ public class TableUtil {
     public static String[] getRandomStringData(int num, Random random){
         String[] ret = new String[num];
         for(int i=0;i<num;i++)
-            ret[i] = String.valueOf(random.nextInt(100));
+            ret[i] = String.valueOf(random.nextInt(100)) + "c";
         return ret;
     }
 
@@ -61,6 +61,15 @@ public class TableUtil {
         Random random = new Random();
         for(int i=0;i<numOfData;i++){
             ret.insert(getRandomIntegerData(colNames.length, random));
+        }
+        return ret;
+    }
+
+    public static Table getAlreadyMakedStringTable(String name, String[] colNames, int numOfData){
+        Table ret = TableFactory.create(name, colNames);
+        Random random = new Random();
+        for(int i=0;i<numOfData;i++){
+            ret.insert(getRandomStringData(colNames.length, random));
         }
         return ret;
     }
