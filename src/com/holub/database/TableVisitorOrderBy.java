@@ -8,7 +8,6 @@ import java.util.*;
 public class TableVisitorOrderBy implements TableVisitor{
     public String[] colnames;
     public int[] inputAsc;
-    public int[] asc;
 
     public TableVisitorOrderBy(String[] colname, int[] asc){
         this.colnames = colname;
@@ -17,22 +16,24 @@ public class TableVisitorOrderBy implements TableVisitor{
 
     public class RowComparator implements Comparator<List<Object>>{
         int nowIndex;
+        int ascOrDesc;
 
-        public RowComparator(int nowIndex){
+        public RowComparator(int nowIndex, int ascOrDesc){
             this.nowIndex = nowIndex;
+            this.ascOrDesc = ascOrDesc;
         }
         @Override
         public int compare(List<Object> list1, List<Object> list2) {
             if(list1.get(nowIndex) == null)
-                return -1 * asc[nowIndex];
+                return -1 * ascOrDesc;
             if(list2.get(nowIndex) == null)
-                return 1 * asc[nowIndex];
+                return 1 * ascOrDesc;
             TypeCheck.checkComparable(list1.get(nowIndex), "");
             TypeCheck.checkComparable(list2.get(nowIndex), "");
             Comparable v1 = (Comparable) list1.get(nowIndex);
             Comparable v2 = (Comparable) list2.get(nowIndex);
 
-            return v1.compareTo(v2) * asc[nowIndex];
+            return v1.compareTo(v2) * ascOrDesc;
         }
     }
 
@@ -50,14 +51,12 @@ public class TableVisitorOrderBy implements TableVisitor{
     @Override
     public Table visit(ConcreteTable table) {
         List<List<Object>> map = table.makeTableToList();
-        asc = new int[table.getColumnNames().length];
         for(int i=0;i<colnames.length;i++){
             int nowIndex = findIndex(colnames[i], table.getColumnNames());
-            asc[nowIndex] = inputAsc[i];
-            Collections.sort(map, new RowComparator(nowIndex));
+            Collections.sort(map, new RowComparator(nowIndex, inputAsc[i]));
         }
 
-        Table ret = TableFactory.create("distinct", table.getColumnNames());
+        Table ret = TableFactory.create("orderBy" + Arrays.toString(colnames), table.getColumnNames());
 
         for(List<Object> row: map){
             ret.insert(row);

@@ -12,7 +12,7 @@ public class TableVisitorOrderByCustomTest {
     String[] baseColName = {"aaa", "bbb", "ccc"};
     @Test
     public void functionTestWithRandomInteger(){
-        Table table = TableUtil.getAlreadyMakedStringTable(null, baseColName, 5);
+        Table table = TableUtil.getAlreadyMakedIntegerTable(null, baseColName, 5);
         TableUtil.showTableData((ConcreteTable) table);
         String[] colName = new String[]{"bbb", "aaa"};
         Table testTable = table.accept(new TableVisitorOrderBy(colName, new int[]{-1, -1}));
@@ -20,7 +20,7 @@ public class TableVisitorOrderByCustomTest {
     }
     @Test
     public void functionTestWithRandomString(){
-        Table table = TableUtil.getAlreadyMakedIntegerTable(null, baseColName, 5);
+        Table table = TableUtil.getAlreadyMakedStringTable(null, baseColName, 5);
         TableUtil.showTableData((ConcreteTable) table);
         String[] colName = new String[]{"bbb", "aaa"};
         Table testTable = table.accept(new TableVisitorOrderBy(colName, new int[]{-1, -1}));
