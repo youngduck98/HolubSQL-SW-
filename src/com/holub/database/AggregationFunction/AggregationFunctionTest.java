@@ -3,7 +3,9 @@ package com.holub.database.AggregationFunction;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -132,7 +134,7 @@ public class AggregationFunctionTest {
 
     @Test
     public void checkErrorInputSum(){
-        List<Object> a = new ArrayList<>();
+        LinkedList<Object> a = new LinkedList<>();
         AggregationFunction k = new Sum();
         a.add("a");
         a.add("b");
