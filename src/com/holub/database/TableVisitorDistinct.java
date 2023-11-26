@@ -28,6 +28,12 @@ public class TableVisitorDistinct implements TableVisitor{
 
     @Override
     public Table visit(UnmodifiableTable table) {
-        return visit((ConcreteTable)table.extract());
+        Table extractedTable = table.extract();
+        if(extractedTable instanceof UnmodifiableTable){
+            return visit((UnmodifiableTable) extractedTable);
+        }
+        if(extractedTable instanceof ConcreteTable)
+            return visit((ConcreteTable)extractedTable);
+        return null;
     }
 }
