@@ -73,6 +73,16 @@ public class CheckOutDao extends Dao {
         return ret;
     }
 
+    public void deleteRow(Integer checkoutUUid){
+        Selector selector = new Selector.Adapter() {
+            public boolean approve(Cursor[] tables) {
+                return tables[0].column("uuid").equals(checkoutUUid);
+            }
+        };
+
+        table.delete(selector);
+    }
+
     public Table returnTable() {
         return table;
     }
