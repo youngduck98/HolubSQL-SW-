@@ -20,7 +20,7 @@ public interface CheckOutService {
     // uuid를 사용해서 책 연장하기
     public void extensionDueDate(Model model);
 
-    // uuid 리스트를 사용해서 찾은 대출정보 리턴
+    // uuid 리스트를 사용해서 찾은 대출정보 리턴 -> 관리자가 checkOutTable 모두 받을때 사용
     public List<CheckOut> searchCheckOut(Model model);
 
 }
