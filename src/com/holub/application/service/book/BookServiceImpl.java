@@ -1,5 +1,6 @@
 package com.holub.application.service.book;
 
+import com.holub.application.dao.BookDao;
 import com.holub.application.dao.Dao;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.book.CheckOutState;
@@ -63,12 +64,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<String> getBookGenre() {
         // TODO
-        return null;
+        return ((BookDao)dao).getTablesGenre();
     }
 
     @Override
     public List<Book> getOnlySpecialGenre(Model model) {
         // TODO
-        return null;
+        String genre = (String) model.getAttribute("genre");
+        return ((BookDao)dao).getGenresBook(genre);
     }
 }

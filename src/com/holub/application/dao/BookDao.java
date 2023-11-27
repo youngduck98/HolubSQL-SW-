@@ -4,10 +4,7 @@ import com.holub.application.domain.book.Book;
 import com.holub.database.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class BookDao extends Dao{
     private static BookDao uniqueDao;
@@ -24,7 +21,7 @@ public class BookDao extends Dao{
     }
 
     @Override
-    List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
+    public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
         if(callName != null && asc != null)
             table.accept(new TableVisitorOrderBy(callName, asc));
         List<List<Object>> map = TableUtil.makeTableToList(table);
@@ -39,7 +36,7 @@ public class BookDao extends Dao{
     }
 
     @Override
-    void insertTable(List<Object> domainList) {
+    public void insertTable(List<Object> domainList) {
         int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object book: domainList){
             ((Book)book).setUuid(nextUid++);
@@ -48,7 +45,7 @@ public class BookDao extends Dao{
     }
 
     @Override
-    void updateTable(Object updateInfo) throws IOException {
+    public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
                 return tables[0].column("uuid").equals(((Book)updateInfo).getUuid());
@@ -61,8 +58,34 @@ public class BookDao extends Dao{
         loadTable(table.name());
     }
 
+    public List<String> getTablesGenre(){
+        Selector selector = new Selector.Adapter();
+        Table distinctTable = table.select(selector, new String[]{"genre"})
+                .accept(new TableVisitorDistinct());
+        List<String> ret = new ArrayList<>();
+        Cursor cursor = distinctTable.rows();
+        while(cursor.advance()){
+            Iterator a = cursor.columns();
+            ret.add((String)a.next());
+        }
+        return ret;
+    }
+
+    public List<Book> getGenresBook(String genre){
+        Selector selector = new Selector.Adapter() {
+            public boolean approve(Cursor[] tables) {
+                return tables[0].column("genre").equals(genre);
+            }
+        };
+        List<Book> ret = new ArrayList<>();
+        for(List<Object> row: TableUtil.makeTableToList(table.select(selector))){
+            ret.add(new Book(row));
+        }
+        return ret;
+    }
+
     @Override
-    Table returnTable() {
+    public Table returnTable() {
         return table;
     }
 }
