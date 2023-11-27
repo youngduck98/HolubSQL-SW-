@@ -2,7 +2,7 @@ package com.holub.application.domain.member;
 
 public class Member {
 
-    private String uuid;
+    private Integer uuid;
     private String id;
     private String password;
     private String name;
@@ -20,15 +20,15 @@ public class Member {
     private Gender gender;
     private Grant grant;
 
-    public Member(String uuid){
+    public Member(Integer uuid){
         this.uuid = uuid;
     }
 
-    public String getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 

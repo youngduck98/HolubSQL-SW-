@@ -4,33 +4,33 @@ import java.util.Date;
 
 public class CheckOut {
 
-    private String uuid;
-    private String memberUuid;
-    private String bookUuid;
+    private Integer uuid;
+    private Integer memberUuid;
+    private Integer bookUuid;
     private Date rentalDate;
     private Date dueDate;
 
-    public String getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 
-    public String getMemberUuid() {
+    public Integer getMemberUuid() {
         return memberUuid;
     }
 
-    public void setMemberUuid(String memberUuid) {
+    public void setMemberUuid(Integer memberUuid) {
         this.memberUuid = memberUuid;
     }
 
-    public String getBookUuid() {
+    public Integer getBookUuid() {
         return bookUuid;
     }
 
-    public void setBookUuid(String bookUuid) {
+    public void setBookUuid(Integer bookUuid) {
         this.bookUuid = bookUuid;
     }
 
