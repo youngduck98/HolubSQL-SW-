@@ -1,5 +1,6 @@
 package com.holub.application.service.book;
 
+import com.holub.application.dao.BookDao;
 import com.holub.application.dao.Dao;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.book.CheckOutState;
@@ -85,20 +86,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<String> getBookGenre() {
-        // TODO
-        return null;
+        return ((BookDao)bookDao).getTablesGenre();
     }
 
     @Override
     public List<Book> getOnlySpecialGenre(Model model) {
-        // TODO
-        return null;
+        String genre = (String) model.getAttribute("genre");
+        model.clearAttribute();
+        return ((BookDao)bookDao).getGenresBook(genre);
     }
 
     private Grant getMyGrant(Model model) {
         Integer myUuid = (Integer) model.getAttribute("myInfo");
         Member myMember = (Member) memberDao.selectTable(
-                Arrays.asList(new Integer[]{myUuid}), null, null).get(0);
+                Arrays.asList(new Integer[] {myUuid}), null, null).get(0);
         return myMember.getGrant();
     }
 }
