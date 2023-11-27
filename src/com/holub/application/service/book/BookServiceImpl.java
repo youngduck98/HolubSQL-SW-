@@ -39,12 +39,18 @@ public class BookServiceImpl implements BookService {
         String[] callName = (String[]) model.getAttribute("callName");
         int[] asc = (int[]) model.getAttribute("asc");
 
-        for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
-            list.add((Book) o);
+        List<Object> bookList = bookDao.selectTable(uuidList, callName, asc);
+        if (!bookList.isEmpty()) {
+            for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
+                list.add((Book) o);
+            }
+
+            model.clearAttribute();
+            return list;
         }
 
         model.clearAttribute();
-        return list;
+        return null;
     }
 
     @Override
