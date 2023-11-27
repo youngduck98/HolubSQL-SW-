@@ -2,7 +2,12 @@ package com.holub.application.service.login;
 
 import com.holub.application.dao.Dao;
 import com.holub.application.dao.MemberDao;
+import com.holub.application.domain.member.Grant;
+import com.holub.application.domain.member.Member;
 import com.holub.application.model.Model;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginServiceImpl implements LoginService{
 
@@ -22,17 +27,43 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public void login(Model model) {
-        // TODO
-        // 1. dao에서 id, password 탐색
-        // 2. Member 변수 생성
-        // 3. Model에 저장
-        // model.addAttribute("MyInfo", member);
+        Grant grant = getMyGrant(model);
 
+        if (grant == Grant.None) {
+            String id = (String) model.getAttribute("id");
+            String password = (String) model.getAttribute("password");
+
+            Object temp = memberDao.findByIdAndPassword(id, password);
+
+            model.clearAttribute();
+            if (temp != null) {
+                Member member = (Member) temp;
+                model.addAttribute("myInfo", (Integer) (member.getUuid()));
+            }
+        }
     }
 
     @Override
     public void logout(Model model) {
-        // TODO
-        model.removeAttribute("MyInfo");
+        model.removeAttribute("myInfo");
+        model.clearAttribute();
     }
+
+    private Grant getMyGrant(Model model) {
+
+        if (!model.containsAttribute("myInfo"))
+            return Grant.None;
+
+        Integer myUuid = (Integer) model.getAttribute("myInfo");
+
+        List<Object> memberList = memberDao.selectTable(
+                Arrays.asList(new Integer[] {myUuid}), null, null);
+        if (!memberList.isEmpty()){
+            Member myMember = (Member) memberList.get(0);
+            return myMember.getGrant();
+        }
+
+        return Grant.None;
+    }
+
 }
