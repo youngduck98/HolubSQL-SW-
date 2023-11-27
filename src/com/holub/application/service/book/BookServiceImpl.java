@@ -2,6 +2,7 @@ package com.holub.application.service.book;
 
 import com.holub.application.dao.BookDao;
 import com.holub.application.dao.Dao;
+import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.book.CheckOutState;
 import com.holub.application.domain.member.Grant;
@@ -16,15 +17,15 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private static BookService instance;
-    private final Dao bookDao;
-    private final Dao memberDao;
+    private final BookDao bookDao;
+    private final MemberDao memberDao;
 
-    private BookServiceImpl(Dao bookDao, Dao memberDao){
+    private BookServiceImpl(BookDao bookDao, MemberDao memberDao){
         this.bookDao = bookDao;
         this.memberDao = memberDao;
     }
 
-    public static BookService getInstance(Dao bookDao, Dao memberDao){
+    public static BookService getInstance(BookDao bookDao, MemberDao memberDao){
         if (instance == null) {
             instance = new BookServiceImpl(bookDao, memberDao);
         }
@@ -86,21 +87,21 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<String> getBookGenre() {
-        // TODO
-        return ((BookDao)dao).getTablesGenre();
+        return bookDao.getTablesGenre();
     }
 
     @Override
     public List<Book> getOnlySpecialGenre(Model model) {
-        // TODO
         String genre = (String) model.getAttribute("genre");
-        return ((BookDao)dao).getGenresBook(genre);
+        model.clearAttribute();
+
+        return bookDao.getGenresBook(genre);
     }
 
     private Grant getMyGrant(Model model) {
         Integer myUuid = (Integer) model.getAttribute("myInfo");
         Member myMember = (Member) memberDao.selectTable(
-                Arrays.asList(new Integer[]{myUuid}), null, null).get(0);
+                Arrays.asList(new Integer[] {myUuid}), null, null).get(0);
         return myMember.getGrant();
     }
 }

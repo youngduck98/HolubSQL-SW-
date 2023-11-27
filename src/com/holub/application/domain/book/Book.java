@@ -28,7 +28,8 @@ public class Book {
         this.genre = genre;
     }
 
-    public Book(List<Object> row) {
+
+    public Book(List<Object> row){
         this.uuid = (Integer) row.get(0);
         this.title = (String) row.get(1);
         this.author = (String) row.get(2);
@@ -39,6 +40,7 @@ public class Book {
         this.checkOutState = (CheckOutState) row.get(7);
         this.genre = (String) row.get(8);
     }
+
     public Book(String title, String author, LocalDate publicationDate, LocalDate registrationDate, Integer quantity, Location location, CheckOutState checkOutState, String genre) {
         this.uuid = -1;
         this.title = title;
