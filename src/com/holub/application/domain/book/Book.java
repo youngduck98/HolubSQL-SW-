@@ -4,7 +4,7 @@ import java.time.*;
 
 public class Book {
 
-    private String uuid;                       // 고유 번호
+    private Integer uuid;                       // 고유 번호
     private String title;                   // 제목
     private String author;                  // 작가
     private LocalDate publicationDate;      // 출간일
@@ -13,11 +13,11 @@ public class Book {
     private Location location;              // 위치 -> 서울, 안성
     private CheckOutState checkOutState;    // 상태 -> 대여 가능, 대여 불가, 삭제
 
-    public String getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 
