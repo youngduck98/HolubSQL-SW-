@@ -885,8 +885,8 @@ import static org.junit.Assert.*;
 			people.export(new CSVExporter(out));
 			out.close();
 
-			Reader in = new FileReader("people.xml");
-			people = new ConcreteTable(new XMLImporter(in));
+			Reader in = new FileReader("people.csv");
+			people = new ConcreteTable(new CSVImporter(in));
 			in.close();
 		}
 
