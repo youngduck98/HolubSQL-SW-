@@ -12,6 +12,14 @@ public class CheckOut {
     private LocalDate rentalDate;
     private LocalDate dueDate;
 
+    public CheckOut(Integer uuid, Integer memberUuid, Integer bookUuid, LocalDate rentalDate, LocalDate dueDate) {
+        this.uuid = uuid;
+        this.memberUuid = memberUuid;
+        this.bookUuid = bookUuid;
+        this.rentalDate = rentalDate;
+        this.dueDate = dueDate;
+    }
+
     public List<Object> toList() {
         return Arrays.asList(
                 uuid, memberUuid, bookUuid, rentalDate, dueDate
