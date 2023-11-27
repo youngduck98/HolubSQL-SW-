@@ -10,11 +10,13 @@ public class Member {
     private String password;
     private String name;
     private Integer age;
+    private Gender gender;
     private String number;
+    private Grant grant;
 
     public List<Object> toList() {
         return Arrays.asList(
-                uuid, id, password, name, age, number
+                uuid, id, password, name, age, gender, number, grant
         );
     }
 
@@ -25,9 +27,6 @@ public class Member {
     public void setNumber(String number) {
         this.number = number;
     }
-
-    private Gender gender;
-    private Grant grant;
 
     public Member(Integer uuid){
         this.uuid = uuid;
@@ -69,7 +68,7 @@ public class Member {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
