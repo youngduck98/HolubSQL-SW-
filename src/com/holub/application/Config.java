@@ -18,31 +18,29 @@ import java.io.IOException;
 public class Config {
 
     public BookService getBookService() throws IOException {
-        return BookServiceImpl.getInstance(BookDao.getInstance(
-                "",
-                ""
-        ));
+        return BookServiceImpl.getInstance(
+                BookDao.getInstance("", ""),
+                MemberDao.getInstance("", "")
+        );
     }
 
     public CheckOutService getCheckOutService() throws IOException {
-        return CheckOutServiceImpl.getInstance(CheckOutDao.getInstance(
-                "",
-                ""
-        ));
+        return CheckOutServiceImpl.getInstance(
+                CheckOutDao.getInstance("", ""),
+                MemberDao.getInstance("", "")
+        );
     }
 
     public LoginService getLoginService() throws IOException {
-        return LoginServiceImpl.getInstance(MemberDao.getInstance(
-                "",
-                ""
-        ));
+        return LoginServiceImpl.getInstance(
+                MemberDao.getInstance("", "")
+        );
     }
 
     public MemberService getMemberService() throws IOException {
-        return MemberServiceImpl.getInstance(MemberDao.getInstance(
-                "",
-                ""
-        ));
+        return MemberServiceImpl.getInstance(
+                MemberDao.getInstance("", "")
+        );
     }
 
 }

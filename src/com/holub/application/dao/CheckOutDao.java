@@ -24,30 +24,32 @@ public class CheckOutDao extends Dao {
     }
 
     @Override
-    List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
+    public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
         if(callName != null && asc != null)
             table.accept(new TableVisitorOrderBy(callName, asc));
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
-        List<List<Object>> newDataSet = new ArrayList<>();
+        List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
             if(!uuidSet.contains(row.get(0)))
                 continue;
-            newDataSet.add(row);
+            newDataSet.add(new CheckOut(row));
         }
 
-        return null;
+        return newDataSet;
     }
 
     @Override
-    void insertTable(List<Object> domainList) {
+    public void insertTable(List<Object> domainList) {
+        int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object checkOut: domainList){
+            ((CheckOut)checkOut).setUuid(nextUid++);
             table.insert(((CheckOut)checkOut).toList());
         }
     }
 
     @Override
-    void updateTable(Object updateInfo) throws IOException {
+    public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
                 return tables[0].column("uuid").equals(((CheckOut)updateInfo).getUuid());
@@ -61,7 +63,7 @@ public class CheckOutDao extends Dao {
     }
 
     @Override
-    Table returnTable() {
+    public Table returnTable() {
         return table;
     }
 }

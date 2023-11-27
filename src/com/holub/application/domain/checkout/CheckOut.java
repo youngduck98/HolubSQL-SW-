@@ -20,6 +20,14 @@ public class CheckOut {
         this.dueDate = dueDate;
     }
 
+    public CheckOut(Integer memberUuid, Integer bookUuid, LocalDate rentalDate, LocalDate dueDate) {
+        this.uuid = -1;
+        this.memberUuid = memberUuid;
+        this.bookUuid = bookUuid;
+        this.rentalDate = rentalDate;
+        this.dueDate = dueDate;
+    }
+
     public CheckOut(List<Object> row) {
         this.uuid = (Integer) row.get(0);
         this.memberUuid = (Integer) row.get(1);
