@@ -25,6 +25,8 @@
  *    in any of this code.
  */
 package com.holub.database;
+import com.holub.database.AggregationFunction.AggregationFunction;
+
 import java.io.*;
 import java.util.*;
 
@@ -95,6 +97,15 @@ public class UnmodifiableTable implements Table
 	public Table select(Selector w, Collection r)
 	{	return wrapped.select(w, r);
 	}
+	public Table applyAggregation(List<AggregationFunction> aggregations) {
+		return wrapped.applyAggregation(aggregations);
+	}
+
+	@Override
+	public Table accept(TableVisitor visitor) {
+		return wrapped.accept(visitor);
+	}
+
 	public Cursor rows()
 	{	return wrapped.rows();
 	}

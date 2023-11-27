@@ -28,6 +28,8 @@ package com.holub.database;
 
 import java.io.*;
 import java.util.*;
+
+import com.holub.database.AggregationFunction.AggregationFunction;
 import com.holub.database.Selector;
 
 /** A table is a database-like table that provides support for
@@ -239,6 +241,14 @@ public interface Table extends Serializable, Cloneable
 	 *  calls String-array version.
 	 */
 	Table select(Selector where, Collection requestedColumns );
+
+	//create table by appling aggregation functions in List to base table and return it
+	Table applyAggregation(List<AggregationFunction> aggregations);
+
+	/**
+	 * visitor pattern's accept method
+	 */
+	Table accept(TableVisitor visitor);
 
 	/** Return an iterator across the rows of the current table.
 	 */
