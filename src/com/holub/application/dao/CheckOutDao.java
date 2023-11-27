@@ -41,7 +41,9 @@ public class CheckOutDao extends Dao {
 
     @Override
     void insertTable(List<Object> domainList) {
+        int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object checkOut: domainList){
+            ((CheckOut)checkOut).setUuid(nextUid++);
             table.insert(((CheckOut)checkOut).toList());
         }
     }

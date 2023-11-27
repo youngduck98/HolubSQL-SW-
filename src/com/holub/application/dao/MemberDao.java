@@ -40,7 +40,9 @@ public class MemberDao extends Dao{
 
     @Override
     void insertTable(List<Object> domainList) {
+        int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object member: domainList){
+            ((Member)member).setUuid(nextUid);
             table.insert(((Member)member).toList());
         }
     }

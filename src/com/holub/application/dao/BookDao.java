@@ -40,7 +40,9 @@ public class BookDao extends Dao{
 
     @Override
     void insertTable(List<Object> domainList) {
+        int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object book: domainList){
+            ((Book)book).setUuid(nextUid++);
             table.insert(((Book)book).toList());
         }
     }
