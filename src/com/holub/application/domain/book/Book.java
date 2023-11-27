@@ -14,11 +14,20 @@ public class Book {
     private Integer quantity;               // 수량
     private Location location;              // 위치 -> 서울, 안성
     private CheckOutState checkOutState;    // 상태 -> 대여 가능, 대여 불가, 삭제
+    private String genre;                   // 장르
 
     public List<Object> toList() {
         return Arrays.asList(
-            uuid, title, author, publicationDate, registrationDate, quantity, location, checkOutState
+            uuid, title, author, publicationDate, registrationDate, quantity, location, checkOutState, genre
         );
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public Integer getUuid() {
