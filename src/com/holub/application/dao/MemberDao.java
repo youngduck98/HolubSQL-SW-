@@ -36,7 +36,6 @@ public class MemberDao extends Dao{
                 continue;
             newDataSet.add(row);
         }
-
         return null;
     }
 
