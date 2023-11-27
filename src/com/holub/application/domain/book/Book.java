@@ -1,17 +1,25 @@
 package com.holub.application.domain.book;
 
 import java.time.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Book {
 
-    private Integer uuid;                       // 고유 번호
+    private Integer uuid;                   // 고유 번호
     private String title;                   // 제목
     private String author;                  // 작가
     private LocalDate publicationDate;      // 출간일
     private LocalDate registrationDate;     // 등록일
-    private Integer quantity;                   // 수량
+    private Integer quantity;               // 수량
     private Location location;              // 위치 -> 서울, 안성
     private CheckOutState checkOutState;    // 상태 -> 대여 가능, 대여 불가, 삭제
+
+    public List<Object> toList() {
+        return Arrays.asList(
+            uuid, title, author, publicationDate, registrationDate, quantity, location, checkOutState
+        );
+    }
 
     public Integer getUuid() {
         return uuid;
