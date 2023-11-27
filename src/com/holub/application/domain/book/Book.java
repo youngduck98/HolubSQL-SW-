@@ -28,6 +28,18 @@ public class Book {
         this.genre = genre;
     }
 
+    public Book(List<Object> row){
+        this.uuid = (Integer) row.get(0);
+        this.title = (String) row.get(1);
+        this.author = (String) row.get(2);
+        this.publicationDate = (LocalDate) row.get(3);
+        this.registrationDate = (LocalDate) row.get(4);
+        this.quantity = (Integer) row.get(5);
+        this.location = (Location) row.get(6);
+        this.checkOutState = (CheckOutState) row.get(7);
+        this.genre = (String) row.get(8);
+    }
+
     public List<Object> toList() {
         return Arrays.asList(
             uuid, title, author, publicationDate, registrationDate, quantity, location, checkOutState, genre

@@ -20,6 +20,14 @@ public class CheckOut {
         this.dueDate = dueDate;
     }
 
+    public CheckOut(List<Object> row) {
+        this.uuid = (Integer) row.get(0);
+        this.memberUuid = (Integer) row.get(1);
+        this.bookUuid = (Integer) row.get(2);
+        this.rentalDate = (LocalDate) row.get(3);
+        this.dueDate = (LocalDate) row.get(4);
+    }
+
     public List<Object> toList() {
         return Arrays.asList(
                 uuid, memberUuid, bookUuid, rentalDate, dueDate

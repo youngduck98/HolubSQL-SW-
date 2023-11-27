@@ -1,10 +1,7 @@
 package com.holub.application.dao;
 
 import com.holub.application.domain.checkout.CheckOut;
-import com.holub.database.Cursor;
-import com.holub.database.Selector;
-import com.holub.database.Table;
-import com.holub.database.TableUtil;
+import com.holub.database.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +25,8 @@ public class CheckOutDao extends Dao {
 
     @Override
     List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
+        if(callName != null && asc != null)
+            table.accept(new TableVisitorOrderBy(callName, asc));
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<List<Object>> newDataSet = new ArrayList<>();
@@ -56,6 +55,7 @@ public class CheckOutDao extends Dao {
         };
         List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
         table.delete(selector);
+        table.insert(row);
         saveTable();
         loadTable(table.name());
     }

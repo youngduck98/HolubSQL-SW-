@@ -1,10 +1,7 @@
 package com.holub.application.dao;
 
 import com.holub.application.domain.book.Book;
-import com.holub.database.Cursor;
-import com.holub.database.Selector;
-import com.holub.database.Table;
-import com.holub.database.TableUtil;
+import com.holub.database.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,16 +25,17 @@ public class BookDao extends Dao{
 
     @Override
     List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
+        if(callName != null && asc != null)
+            table.accept(new TableVisitorOrderBy(callName, asc));
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
-        List<List<Object>> newDataSet = new ArrayList<>();
+        List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
             if(!uuidSet.contains(row.get(0)))
                 continue;
-            newDataSet.add(row);
+            newDataSet.add(new Book(row));
         }
-
-        return null;
+        return newDataSet;
     }
 
     @Override
@@ -56,6 +54,7 @@ public class BookDao extends Dao{
         };
         List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
         table.delete(selector);
+        table.insert(row);
         saveTable();
         loadTable(table.name());
     }
