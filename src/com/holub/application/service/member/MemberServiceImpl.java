@@ -6,6 +6,7 @@ import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
 import com.holub.application.model.Model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +30,8 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void addMember(Model model) {
         // TODO
-        List<Object> memberRow = (List<Object>) model.getAttribute("memberInfo");
-        memberDao.insertTable(memberRow);
+        Member member = (Member) model.getAttribute("memberInfo");
+        memberDao.insertTable(member.toList());
     }
 
     private List<Member> makeMemberListFromObjectList(List<Object> list){
@@ -52,6 +53,7 @@ public class MemberServiceImpl implements MemberService{
             throw  new NullPointerException();
         if(ret.isEmpty())
             throw new IllegalArgumentException();
+        model.clearAttribute();
         return (Member) ret.get(0);
     }
 
@@ -67,14 +69,20 @@ public class MemberServiceImpl implements MemberService{
         //없는 uuid를 포함하였다는 의미이므로
         if(uuids.size() != output.size())
             throw new IllegalArgumentException();
-
+        model.clearAttribute();
         return makeMemberListFromObjectList(output);
     }
 
     @Override
     public void fixMemberInfo(Model model) {
-        List<Object> memberRow = (List<Object>) model.getAttribute("memberfixInfo");
-        // TODO
+        Member member = (Member) model.getAttribute("memberfixInfo");
+        try {
+            memberDao.updateTable(member);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        model.clearAttribute();
+        // TODO
     }
 }
