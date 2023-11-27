@@ -12,7 +12,7 @@ public interface MemberService {
     public void addMember(Model model);
     
     // uuid로 Member 한명 검색 -> 한명 찾기 & 내 정보 찾기
-    public Member findMember(Model model);
+    public Member findOneMember(Model model);
     
     // uuid 리스트를 사용해서 Member 리스트 반환 -> 모두 찾기
     public List<Member> findMember(Model model);

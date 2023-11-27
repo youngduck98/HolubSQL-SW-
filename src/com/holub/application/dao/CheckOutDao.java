@@ -1,5 +1,6 @@
 package com.holub.application.dao;
 
+import com.holub.application.domain.book.Book;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.database.*;
 
@@ -23,7 +24,6 @@ public class CheckOutDao extends Dao {
         return uniqueDao;
     }
 
-    @Override
     public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
         if(callName != null && asc != null)
             table.accept(new TableVisitorOrderBy(callName, asc));
@@ -39,7 +39,6 @@ public class CheckOutDao extends Dao {
         return newDataSet;
     }
 
-    @Override
     public void insertTable(List<Object> domainList) {
         int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object checkOut: domainList){
@@ -48,7 +47,6 @@ public class CheckOutDao extends Dao {
         }
     }
 
-    @Override
     public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
@@ -62,7 +60,20 @@ public class CheckOutDao extends Dao {
         loadTable(table.name());
     }
 
-    @Override
+    public List<Object> findCheckoutListFromUser(Integer userUid){
+        Selector selector = new Selector.Adapter() {
+            public boolean approve(Cursor[] tables) {
+                return tables[0].column("memberUuid").equals(userUid);
+            }
+        };
+        List<List<Object>> map = TableUtil.makeTableToList(table.select(selector));
+        List<Object> ret = new ArrayList<>();
+        for(List<Object> row: map){
+            ret.add(new CheckOut(row));
+        }
+        return ret;
+    }
+
     public Table returnTable() {
         return table;
     }

@@ -23,7 +23,6 @@ public class MemberDao extends Dao{
         return uniqueDao;
     }
 
-    @Override
     public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
         if(callName != null && asc != null)
             table.accept(new TableVisitorOrderBy(callName, asc));
@@ -38,7 +37,6 @@ public class MemberDao extends Dao{
         return newDataSet;
     }
 
-    @Override
     public void insertTable(List<Object> domainList) {
         int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object member: domainList){
@@ -47,7 +45,6 @@ public class MemberDao extends Dao{
         }
     }
 
-    @Override
     public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
@@ -61,7 +58,6 @@ public class MemberDao extends Dao{
         loadTable(table.name());
     }
 
-    @Override
     public Table returnTable() {
         return table;
     }

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Book {
-
     private Integer uuid;                   // 고유 번호
     private String title;                   // 제목
     private String author;                  // 작가
