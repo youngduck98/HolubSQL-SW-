@@ -1,14 +1,22 @@
 package com.holub.application.domain.checkout;
 
-import java.util.Date;
+import java.time.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class CheckOut {
 
     private Integer uuid;
     private Integer memberUuid;
     private Integer bookUuid;
-    private Date rentalDate;
-    private Date dueDate;
+    private LocalDate rentalDate;
+    private LocalDate dueDate;
+
+    public List<Object> toList() {
+        return Arrays.asList(
+                uuid, memberUuid, bookUuid, rentalDate, dueDate
+        );
+    }
 
     public Integer getUuid() {
         return uuid;
@@ -34,19 +42,19 @@ public class CheckOut {
         this.bookUuid = bookUuid;
     }
 
-    public Date getRentalDate() {
+    public LocalDate getRentalDate() {
         return rentalDate;
     }
 
-    public void setRentalDate(Date rentalDate) {
+    public void setRentalDate(LocalDate rentalDate) {
         this.rentalDate = rentalDate;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 }
