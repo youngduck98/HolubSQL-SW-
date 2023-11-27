@@ -32,4 +32,13 @@ public class Model {
         model.remove(key);
     }
 
+    public void clearAttribute() { // myInfo 제외 모두 지우기
+        for (String str : model.keySet()) {
+            if (str.equals("myInfo")){
+                continue;
+            }
+            model.remove(str);
+        }
+    }
+
 }
