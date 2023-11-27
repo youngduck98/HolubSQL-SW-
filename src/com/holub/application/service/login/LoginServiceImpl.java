@@ -1,20 +1,21 @@
 package com.holub.application.service.login;
 
 import com.holub.application.dao.Dao;
+import com.holub.application.dao.MemberDao;
 import com.holub.application.model.Model;
 
 public class LoginServiceImpl implements LoginService{
 
     private static LoginService instance;
-    private final Dao dao;
+    private final MemberDao memberDao;
 
-    private LoginServiceImpl(Dao dao){
-        this.dao = dao;
+    private LoginServiceImpl(MemberDao memberDao){
+        this.memberDao = memberDao;
     }
 
-    public static LoginService getInstance(Dao dao){
+    public static LoginService getInstance(MemberDao memberDao){
         if (instance == null) {
-            instance = new LoginServiceImpl(dao);
+            instance = new LoginServiceImpl(memberDao);
         }
         return instance;
     }
