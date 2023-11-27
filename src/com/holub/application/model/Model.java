@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class Model {
 
-    private static Model instance;
-    private Map<String, Object> model;
+    private static final Model instance = new Model();
+    private final Map<String, Object> model;
 
     private Model(){
         this.model = new HashMap<>();
     }
 
-    public Model getInstance() {
+    public static Model getInstance() {
         return instance;
     }
 
