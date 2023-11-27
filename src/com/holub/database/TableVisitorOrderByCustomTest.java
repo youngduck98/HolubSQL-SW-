@@ -3,20 +3,13 @@ package com.holub.database;
 import com.holub.database.Check.ArrayCheck;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TableVisitorOrderByCustomTest {
     String[] baseColName = {"aaa", "bbb", "ccc"};
-
-    public static ConcreteTable extractTable(Table table){
-        if(table instanceof UnmodifiableTable)
-            return extractTable(((UnmodifiableTable) table).extract());
-        if(table instanceof ConcreteTable)
-            return (ConcreteTable) table;
-        return null;
-    }
 
     public class ListComparator implements Comparator<List<Object>>{
         int index;
@@ -38,7 +31,7 @@ public class TableVisitorOrderByCustomTest {
     }
 
     public Table sortTable(Table table, String[] colName, int[] asc){
-        ConcreteTable cTable = extractTable(table);
+        ConcreteTable cTable = TableUtil.extractTable(table);
         List<List<Object>> tableMap = cTable.makeTableToList();
         for(int i=0;i<colName.length;i++) {
             int index = TableUtil.findIndex(colName[i], baseColName);
@@ -79,6 +72,20 @@ public class TableVisitorOrderByCustomTest {
         Table answerTable = sortTable(table, colName, asc);
         System.out.println("test");
         TableUtil.showTableData((ConcreteTable) testTable);
+        assertThat(TableUtil.TableIsEqual(
+                (ConcreteTable) answerTable, (ConcreteTable) testTable)
+        ).isEqualTo(true);
+    }
+
+    @Test
+    public void functionTestWithDate(){
+        Table table = TableFactory.create("test", new String[]{"aaa"});
+        table.insert(new Object[]{LocalDate.of(1999, 10, 1)});
+        table.insert(new Object[]{LocalDate.of(2000, 10, 1)});
+        String[] colName = new String[]{"aaa"};
+        int[] asc = {-1};
+        Table testTable = table.accept(new TableVisitorOrderBy(colName, asc));
+        Table answerTable = sortTable(table, colName, asc);
         assertThat(TableUtil.TableIsEqual(
                 (ConcreteTable) answerTable, (ConcreteTable) testTable)
         ).isEqualTo(true);

@@ -2,6 +2,8 @@ package com.holub.database;
 
 import com.holub.database.Check.ArrayCheck;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -84,4 +86,29 @@ public class TableUtil {
         System.out.println(colName);
         throw new IllegalArgumentException("no name colName like that");
     }
+
+    public static ConcreteTable extractTable(Table table){
+        if(table instanceof UnmodifiableTable)
+            return extractTable(((UnmodifiableTable) table).extract());
+        if(table instanceof ConcreteTable)
+            return (ConcreteTable) table;
+        return null;
+    }
+
+    public static List<List<Object>> makeTableToList(Table table){
+        Table extractedTable = TableUtil.extractTable(table);
+        Cursor cursor = extractedTable.rows();
+        List<List<Object>> ret = new ArrayList<>();
+
+        while(cursor.advance()){
+            List<Object> row = new ArrayList<>();
+            Iterator colIterator = cursor.columns();
+            while(colIterator.hasNext()){
+                row.add(colIterator.next());
+            }
+            ret.add(row);
+        }
+        return ret;
+    }
+
 }

@@ -35,7 +35,7 @@ package com.holub.database;
  * @include /etc/license.txt
  */
 
-interface Selector
+public interface Selector
 {
 	/** This method is passed rows from the tables being joined
 	 *  and returns true if the aggregate row is approved for the
