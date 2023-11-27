@@ -1,7 +1,6 @@
 package com.holub.application.service.book;
 
 import com.holub.application.dao.BookDao;
-import com.holub.application.dao.Dao;
 import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.book.CheckOutState;

@@ -28,15 +28,14 @@ public class MemberServiceImpl implements MemberService{
         // TODO
     }
 
-    @Override
-    public Member findMember(Model model) {
+
+    public Member findOneMember(Model model) {
         // TODO
         return null;
     }
 
     @Override
     public List<Member> findMember(Model model) {
-        // TODO
         return null;
     }
 

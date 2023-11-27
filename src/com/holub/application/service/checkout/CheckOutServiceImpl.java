@@ -9,10 +9,10 @@ import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
 import com.holub.application.model.Model;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class CheckOutServiceImpl implements CheckOutService{
 
@@ -48,10 +48,17 @@ public class CheckOutServiceImpl implements CheckOutService{
     public void returnBook(Model model) {
         Grant grant = getMyGrant(model);
         Integer returnUuid = (Integer) model.getAttribute("returnUuid");
+        List<Object> checkOutList = checkOutDao.selectTable(
+                Arrays.asList(new Integer[] {returnUuid}), null, null
+        );
 
-        // TODO : userUUID를 사용해서 그 유저만 빌린 대출정보를 리턴하는 기능이 필요
+        if (!checkOutList.isEmpty() && grant == Grant.Member) {
+            CheckOut checkOut = (CheckOut) checkOutList.get(0);
+            // TODO - delete 필요
+            checkOut.set
+        }
 
-
+        model.clearAttribute();
     }
 
     @Override
@@ -59,12 +66,17 @@ public class CheckOutServiceImpl implements CheckOutService{
         Grant grant = getMyGrant(model);
         LocalDate dueDateInfo = (LocalDate) model.getAttribute("extensionDueDateInfo");
         Integer dueDateUuid = (Integer) model.getAttribute("extensionDueDateUuid");
-        CheckOut check =
+        List<Object> checkOutList = checkOutDao.selectTable(
+                Arrays.asList(new Integer[] {dueDateUuid}), null, null
+        );
 
-        // TODO : dueDateUuid를 사용해서 CheckOut객체를 select한 뒤, extensionDueDateInfo 로 update
+        if (!checkOutList.isEmpty() && grant == Grant.Manager) {
+            CheckOut checkOut = (CheckOut) checkOutList.get(0);
+            checkOut.setDueDate(dueDateInfo);
+            checkOutDao.updateTable(checkOut);
+        }
 
-
-        if ()
+        model.clearAttribute();
     }
 
     @Override
