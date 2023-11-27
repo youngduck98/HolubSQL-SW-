@@ -1,6 +1,8 @@
 package com.holub.application.domain.checkout;
 
 import java.time.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class CheckOut {
 
@@ -9,6 +11,12 @@ public class CheckOut {
     private Integer bookUuid;
     private LocalDate rentalDate;
     private LocalDate dueDate;
+
+    public List<Object> toList() {
+        return Arrays.asList(
+                uuid, memberUuid, bookUuid, rentalDate, dueDate
+        );
+    }
 
     public Integer getUuid() {
         return uuid;

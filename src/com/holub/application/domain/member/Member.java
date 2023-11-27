@@ -1,5 +1,8 @@
 package com.holub.application.domain.member;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Member {
 
     private Integer uuid;
@@ -8,6 +11,12 @@ public class Member {
     private String name;
     private Integer age;
     private String number;
+
+    public List<Object> toList() {
+        return Arrays.asList(
+                uuid, id, password, name, age, number
+        );
+    }
 
     public String getNumber() {
         return number;
