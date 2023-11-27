@@ -1,5 +1,6 @@
 package com.holub.application.service.checkout;
 
+import com.holub.application.dao.CheckOutDao;
 import com.holub.application.dao.Dao;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.domain.member.Grant;
@@ -11,15 +12,15 @@ import java.util.List;
 public class CheckOutServiceImpl implements CheckOutService{
 
     private static CheckOutService instance;
-    private final Dao dao;
+    private final CheckOutDao checkOutDao;
 
-    private CheckOutServiceImpl(Dao dao){
-        this.dao = dao;
+    private CheckOutServiceImpl(CheckOutDao checkOutDao){
+        this.checkOutDao = checkOutDao;
     }
 
-    public static CheckOutService getInstance(Dao dao){
+    public static CheckOutService getInstance(CheckOutDao checkOutDao){
         if (instance == null) {
-            instance = new CheckOutServiceImpl(dao);
+            instance = new CheckOutServiceImpl(checkOutDao);
         }
         return instance;
     }

@@ -23,9 +23,4 @@ public abstract class Dao {
         in.close();
         // TODO
     }
-
-    public abstract List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc);
-    public abstract void insertTable(List<Object> domainList);
-    public abstract void updateTable(Object updateInfo) throws IOException;
-    public abstract Table returnTable();
 }
