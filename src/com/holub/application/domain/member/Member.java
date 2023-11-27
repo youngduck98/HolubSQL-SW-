@@ -25,15 +25,15 @@ public class Member {
         this.grant = grant;
     }
 
-    public Member() {
-        this.uuid = uuid;
-        this.id = id;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.number = number;
-        this.grant = grant;
+    public Member(List<Object> row) {
+        this.uuid = (Integer) row.get(0);
+        this.id = (String) row.get(1);
+        this.password = (String) row.get(2);
+        this.name = (String) row.get(3);
+        this.age = (Integer) row.get(4);
+        this.gender = (Gender) row.get(5);
+        this.number = (String) row.get(6);
+        this.grant = (Grant) row.get(7);
     }
 
     public List<Object> toList() {

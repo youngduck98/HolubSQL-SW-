@@ -29,14 +29,14 @@ public class CheckOutDao extends Dao {
             table.accept(new TableVisitorOrderBy(callName, asc));
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
-        List<List<Object>> newDataSet = new ArrayList<>();
+        List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
             if(!uuidSet.contains(row.get(0)))
                 continue;
-            newDataSet.add(row);
+            newDataSet.add(new CheckOut(row));
         }
 
-        return null;
+        return newDataSet;
     }
 
     @Override
