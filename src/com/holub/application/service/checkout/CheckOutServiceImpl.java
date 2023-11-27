@@ -3,6 +3,7 @@ package com.holub.application.service.checkout;
 import com.holub.application.dao.Dao;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.domain.member.Grant;
+import com.holub.application.model.Model;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,22 +25,26 @@ public class CheckOutServiceImpl implements CheckOutService{
     }
 
     @Override
-    public void checkOutBook(Grant grant, Integer uuid) {
+    public void checkOutBook(Model model) {
+        // TODO
+        if (grant == Grant.Member) {
+            CheckOut checkOut = new CheckOut();
+            dao.insertTable(List<Object> domainList);
+        }
+    }
+
+    @Override
+    public void returnBook(Model model) {
         // TODO
     }
 
     @Override
-    public void returnBook(Grant grant, Integer uuid) {
+    public void extensionDueDate(Model model) {
         // TODO
     }
 
     @Override
-    public void extensionDueDate(Grant grant, Integer uuid, LocalDate date) {
-        // TODO
-    }
-
-    @Override
-    public List<CheckOut> searchCheckOut(Grant grant, List<Integer> uuids) {
+    public List<CheckOut> searchCheckOut(Model model) {
         // TODO
 
         return null;
