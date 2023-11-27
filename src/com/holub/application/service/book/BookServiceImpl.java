@@ -39,12 +39,18 @@ public class BookServiceImpl implements BookService {
         String[] callName = (String[]) model.getAttribute("callName");
         int[] asc = (int[]) model.getAttribute("asc");
 
-        for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
-            list.add((Book) o);
+        List<Object> bookList = bookDao.selectTable(uuidList, callName, asc);
+        if (!bookList.isEmpty()) {
+            for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
+                list.add((Book) o);
+            }
+
+            model.clearAttribute();
+            return list;
         }
 
         model.clearAttribute();
-        return list;
+        return null;
     }
 
     @Override
@@ -98,9 +104,19 @@ public class BookServiceImpl implements BookService {
     }
 
     private Grant getMyGrant(Model model) {
+
+        if (!model.containsAttribute("myInfo"))
+            return Grant.None;
+
         Integer myUuid = (Integer) model.getAttribute("myInfo");
-        Member myMember = (Member) memberDao.selectTable(
-                Arrays.asList(new Integer[] {myUuid}), null, null).get(0);
-        return myMember.getGrant();
+
+        List<Object> memberList = memberDao.selectTable(
+                Arrays.asList(new Integer[] {myUuid}), null, null);
+        if (!memberList.isEmpty()){
+            Member myMember = (Member) memberList.get(0);
+            return myMember.getGrant();
+        }
+
+        return Grant.None;
     }
 }
