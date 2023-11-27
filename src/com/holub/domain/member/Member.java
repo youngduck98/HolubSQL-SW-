@@ -2,23 +2,33 @@ package com.holub.domain.member;
 
 public class Member {
 
-    private int uuid;
+    private String uuid;
     private String id;
     private String password;
     private String name;
-    private int age;
+    private Integer age;
+    private String number;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     private Gender gender;
     private Grant grant;
 
-    public Member(int uuid){
+    public Member(String uuid){
         this.uuid = uuid;
     }
 
-    public int getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(int uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
