@@ -11,16 +11,16 @@ import java.util.List;
 
 public interface CheckOutService {
 
-    // 책 uuid를 사용해서 빌리기
-    public void checkOutBook(Grant grant, Integer uuid);
+    // 책 빌리기
+    public void checkOutBook(Model model);
 
     // uuid를 사용해서 책 반납하기
-    public void returnBook(Grant grant, Integer uuid);
+    public void returnBook(Model model);
     
     // uuid를 사용해서 책 연장하기
-    public void extensionDueDate(Grant grant, Integer uuid, LocalDate date);
+    public void extensionDueDate(Model model);
 
     // uuid 리스트를 사용해서 찾은 대출정보 리턴
-    public List<CheckOut> searchCheckOut(Grant grant, List<Integer> uuids);
+    public List<CheckOut> searchCheckOut(Model model);
 
 }

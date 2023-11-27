@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public void login(Model model, String id, String password) {
+    public void login(Model model) {
         // TODO
         // 1. dao에서 id, password 탐색
         // 2. Member 변수 생성

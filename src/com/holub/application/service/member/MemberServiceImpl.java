@@ -3,6 +3,7 @@ package com.holub.application.service.member;
 import com.holub.application.dao.Dao;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
+import com.holub.application.model.Model;
 
 import java.util.List;
 
@@ -23,24 +24,24 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void addMember(Grant grant, Member memberInfo) {
+    public void addMember(Model model) {
         // TODO
     }
 
     @Override
-    public Member findMember(Grant grant, Integer uuid) {
-        // TODO
-        return null;
-    }
-
-    @Override
-    public List<Member> findMember(Grant grant, List<Integer> uuids) {
+    public Member findMember(Model model) {
         // TODO
         return null;
     }
 
     @Override
-    public void fixMemberInfo(Grant grant, Integer uuid, Member memberInfo) {
+    public List<Member> findMember(Model model) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public void fixMemberInfo(Model model) {
         // TODO
     }
 }
