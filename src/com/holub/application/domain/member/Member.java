@@ -14,6 +14,17 @@ public class Member {
     private String number;
     private Grant grant;
 
+    public Member(Integer uuid, String id, String password, String name, Integer age, Gender gender, String number, Grant grant) {
+        this.uuid = uuid;
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.number = number;
+        this.grant = grant;
+    }
+
     public List<Object> toList() {
         return Arrays.asList(
                 uuid, id, password, name, age, gender, number, grant
