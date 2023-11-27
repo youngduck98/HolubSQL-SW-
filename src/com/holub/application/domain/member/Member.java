@@ -25,6 +25,17 @@ public class Member {
         this.grant = grant;
     }
 
+    public Member() {
+        this.uuid = uuid;
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.number = number;
+        this.grant = grant;
+    }
+
     public List<Object> toList() {
         return Arrays.asList(
                 uuid, id, password, name, age, gender, number, grant
