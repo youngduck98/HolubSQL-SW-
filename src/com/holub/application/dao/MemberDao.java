@@ -58,6 +58,17 @@ public class MemberDao extends Dao{
         loadTable(table.name());
     }
 
+    public Member findByIdAndPassword(String id, String password){
+        Selector selector = new Selector.Adapter() {
+            public boolean approve(Cursor[] tables) {
+                return tables[0].column("id").equals(id) &&
+                        tables[0].column("password").equals(password);
+            }
+        };
+        List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
+        return new Member(row);
+    }
+
     public Table returnTable() {
         return table;
     }

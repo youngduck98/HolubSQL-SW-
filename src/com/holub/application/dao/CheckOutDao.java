@@ -1,6 +1,5 @@
 package com.holub.application.dao;
 
-import com.holub.application.domain.book.Book;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.database.*;
 
