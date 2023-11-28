@@ -114,7 +114,7 @@ public class AggregationFunctionTest {
     }
 
     @Test
-    public void minInvaildInputIncompatible(){
+    public void maxInvaildInputIncompatible(){
         List<Object> a = new ArrayList<>();
         AggregationFunction max = new Min();
         a.add("a");
