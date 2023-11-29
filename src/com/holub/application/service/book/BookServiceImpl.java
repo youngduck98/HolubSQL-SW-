@@ -32,10 +32,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBookList(List<Integer> uuidList, String[] callName, int[] asc) {
+    public List<Book> getBookList(List<Integer> uuidList) {
         List<Book> list = new ArrayList<>();
-
-        for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
+        for (Object o : bookDao.selectTable(uuidList)) {
             list.add((Book) o);
         }
 
@@ -73,6 +72,12 @@ public class BookServiceImpl implements BookService {
     public List<Book> getOnlySpecialGenre(String genre) {
         return bookDao.getGenresBook(genre);
     }
+
+    @Override
+    public void sortBook(String[] callName, int[] asc) {
+        bookDao.sortTable(callName, asc);
+    }
+
     private Grant getMyGrant(Integer myUuid) {
         List<Object> memberList = memberDao.selectTable(
                 Arrays.asList(new Integer[] {myUuid}), null, null);
@@ -80,7 +85,6 @@ public class BookServiceImpl implements BookService {
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();
         }
-
         return Grant.None;
     }
 }

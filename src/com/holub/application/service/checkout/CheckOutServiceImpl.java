@@ -76,8 +76,6 @@ public class CheckOutServiceImpl implements CheckOutService{
             }
             return list;
         }
-
-
         return null;
     }
 
