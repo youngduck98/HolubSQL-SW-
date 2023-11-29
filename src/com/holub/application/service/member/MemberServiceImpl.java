@@ -48,6 +48,7 @@ public class MemberServiceImpl implements MemberService{
             throw  new NullPointerException();
         if(ret.isEmpty())
             throw new IllegalArgumentException();
+        model.clearAttribute();
         return (Member) ret.get(0);
     }
 
