@@ -4,9 +4,9 @@ import com.holub.application.domain.member.Grant;
 
 public class MyInfoVTC implements VTC{
 
-    private final String myUuid;
+    private final Integer myUuid;
 
-    public MyInfoVTC(String myUuid) {
+    public MyInfoVTC(Integer myUuid) {
         this.myUuid = myUuid;
     }
 

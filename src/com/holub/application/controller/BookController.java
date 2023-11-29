@@ -4,13 +4,12 @@ import com.holub.application.dao.BookDao;
 import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.member.Grant;
-import com.holub.application.model.Model;
 import com.holub.application.model.vtc.BookVTC;
 import com.holub.application.service.book.BookService;
 import com.holub.application.service.book.BookServiceImpl;
 
 import java.util.List;
-
+/*
 public class BookController {
     private static BookController bc;
     private static BookService bookService;
@@ -71,3 +70,4 @@ public class BookController {
         return view;
     }
 }
+*/

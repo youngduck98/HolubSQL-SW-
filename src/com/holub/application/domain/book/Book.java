@@ -62,6 +62,11 @@ public class Book {
         );
     }
 
+    public static String[] getColumnames(){
+        return new String[]{"uuid", "title", "author", "publicationDate", "registrationDate"
+                , "quantity", "location", "checkOutState", "genre"};
+    }
+
     public String getGenre() {
         return genre;
     }

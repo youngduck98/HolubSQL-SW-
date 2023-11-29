@@ -4,7 +4,6 @@ import com.holub.application.dao.Dao;
 import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
-import com.holub.application.model.Model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,9 +26,16 @@ public class MemberServiceImpl implements MemberService{
         return instance;
     }
 
+    public static MemberService getInstance(){
+        if(instance == null)
+            throw new NullPointerException("at make MemberService");
+        return instance;
+    }
+
     @Override
     public void addMember(Member member) {
-        memberDao.insertTable(member.toList());
+        System.out.println("try to add member");
+        memberDao.insertTable(Arrays.asList(new Member[]{member}));
     }
 
     private List<Member> makeMemberListFromObjectList(List<Object> list){

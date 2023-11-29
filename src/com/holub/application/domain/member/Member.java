@@ -53,6 +53,10 @@ public class Member {
         );
     }
 
+    public static String[] getColNames(){
+        return new String[]{"uuid", "id", "password", "name", "age", "gender", "number", "grant"};
+    }
+
     public String getNumber() {
         return number;
     }

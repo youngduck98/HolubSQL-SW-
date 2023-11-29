@@ -1,19 +1,12 @@
 package com.holub.application.view;
 
-import com.holub.application.model.ctv.CTV;
 import com.holub.application.model.vtc.CheckOutMemberVTC;
-import com.holub.application.model.vtc.MainMemberVTC;
 import com.holub.application.model.vtc.VTC;
 import com.holub.application.util.InputScanner;
 
 public class CheckOutMemberView {
 
     private final InputScanner scanner = InputScanner.getInstance();
-    private final CTV ctv;
-
-    public CheckOutMemberView(CTV ctv) {
-        this.ctv = ctv;
-    }
 
     // 메뉴 출력
     public void showMenu() {
@@ -47,7 +40,6 @@ public class CheckOutMemberView {
         return new CheckOutMemberVTC(menu);
     }
 
-    @Override
     public VTC execute() {
         while(true) {
             showMenu();

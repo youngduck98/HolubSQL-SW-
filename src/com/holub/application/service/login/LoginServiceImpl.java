@@ -4,7 +4,6 @@ import com.holub.application.dao.Dao;
 import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
-import com.holub.application.model.Model;
 import com.holub.application.model.vtc.LoginVTC;
 
 import java.util.Arrays;

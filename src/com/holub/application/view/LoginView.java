@@ -13,6 +13,15 @@ public class LoginView{
         return scanner.inputString();
     }
 
+    public String getSignupOrLogin(){
+        String mode = getString("signup: 1, login: 2");
+        if(!(mode.equals("1") || mode.equals("2"))) {
+            System.out.println("not mode like" + mode);
+            return getSignupOrLogin();
+        }
+        return mode;
+    }
+
     public Grant getGrant(){
         String grant = getString("1: user 2: manger");
         if(!(grant.equals("1") || grant.equals("2"))){

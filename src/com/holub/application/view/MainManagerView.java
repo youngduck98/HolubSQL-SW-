@@ -1,6 +1,10 @@
 package com.holub.application.view;
 
+import com.holub.application.domain.book.Book;
 import com.holub.application.util.InputScanner;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 public class MainManagerView extends MainView{
 
@@ -11,12 +15,6 @@ public class MainManagerView extends MainView{
         System.out.println("(0)로그 아웃 (1)내 정보 (2)회원 정보/수정 (3)대출 정보/연장");
         System.out.println("(4)책 검색 (5)책 정렬 (6)책 등록 (7)책 수정");
         System.out.println("(Q)이전 페이지 (W)다음 페이지 ");
-    }
-
-    // 책 리스트 출력
-    public void showBookList() {
-        // TODO
-        // CTV에서 Book 정보 찾아서 출력
     }
 
     // String 입력 받기

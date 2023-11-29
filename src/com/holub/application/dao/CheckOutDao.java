@@ -4,6 +4,7 @@ import com.holub.application.domain.book.Book;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.database.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,13 +15,25 @@ public class CheckOutDao extends Dao {
     private static CheckOutDao uniqueDao;
     private CheckOutDao(String url, String tableName) throws IOException {
         baseUrl = url;
-        this.loadTable(tableName);
+        try {
+            this.loadTable(tableName);
+        }
+        catch (FileNotFoundException f){
+            table = TableFactory.create("CheckOut", CheckOut.getColNames());
+            this.saveTable();
+        }
     }
 
     public static CheckOutDao getInstance(String url, String tableName) throws IOException {
         if(uniqueDao == null){
             uniqueDao = new CheckOutDao(url, tableName);
         }
+        return uniqueDao;
+    }
+
+    public static CheckOutDao getInstance(){
+        if(uniqueDao == null)
+            throw new NullPointerException();
         return uniqueDao;
     }
 

@@ -19,12 +19,12 @@ public class MainMemberVTC implements VTC{
         return menu;
     }
 
-    public String getBookIndex() {
-        return bookIndex;
+    public Integer getBookIndex() {
+        return bookUuid;
     }
 
-    public void setBookIndex(String bookIndex) {
-        this.bookIndex = bookIndex;
+    public void setBookIndex(Integer bookIndex) {
+        this.bookUuid = bookIndex;
     }
 
     public String getBookTitle() {

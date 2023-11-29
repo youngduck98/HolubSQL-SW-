@@ -6,7 +6,6 @@ import com.holub.application.domain.book.Book;
 import com.holub.application.domain.book.CheckOutState;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
-import com.holub.application.model.Model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +27,12 @@ public class BookServiceImpl implements BookService {
         if (instance == null) {
             instance = new BookServiceImpl(bookDao, memberDao);
         }
+        return instance;
+    }
+
+    public static BookService getInstance(){
+        if(instance == null)
+            throw new NullPointerException();
         return instance;
     }
 
@@ -86,6 +91,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void sortBook(String[] callName, int[] asc) {
         bookDao.sortTable(callName, asc);
+    }
+
+    @Override
+    public List<Book> getBookList() {
+        return bookDao.getBookList();
     }
 
     private Grant getMyGrant(Integer myUuid) {

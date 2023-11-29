@@ -3,22 +3,13 @@ package com.holub.application.view;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.book.CheckOutState;
 import com.holub.application.domain.book.Location;
-import com.holub.application.model.ctv.CTV;
-import com.holub.application.model.vtc.BookRegisterVTC;
-import com.holub.application.model.vtc.BookSortingVTC;
-import com.holub.application.model.vtc.VTC;
 import com.holub.application.util.InputScanner;
 
 import java.time.LocalDate;
 
-public class BookRegisterView implements View{
+public class BookRegisterView{
 
     private final InputScanner scanner = InputScanner.getInstance();
-    private final CTV ctv;
-
-    public BookRegisterView(CTV ctv) {
-        this.ctv = ctv;
-    }
 
     // String 입력 받기
     public String getString(String str) {
@@ -31,8 +22,7 @@ public class BookRegisterView implements View{
         return scanner.inputInteger();
     }
 
-    @Override
-    public VTC execute() {
+    public Book execute() {
         // TODO -> validation 필요
         System.out.println("책 등록을 시작합니다.");
         String title = getString("title");
@@ -61,9 +51,9 @@ public class BookRegisterView implements View{
         else
             location = Location.Anseong;
 
-        Book book = new Book(title, author, publicationDate, registrationDate, quantity, location, checkOutState, genre);
+        Book book = new Book(title, author, publicationDate, registrationDate, quantity, location, checkOutState, genre, 0);
 
-        return new BookRegisterVTC(book);
+        return book;
     }
 
 }

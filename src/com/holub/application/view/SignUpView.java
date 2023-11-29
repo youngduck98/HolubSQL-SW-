@@ -2,20 +2,11 @@ package com.holub.application.view;
 
 import com.holub.application.domain.member.Gender;
 import com.holub.application.domain.member.Member;
-import com.holub.application.model.ctv.CTV;
-import com.holub.application.model.vtc.SignUpVTC;
-import com.holub.application.model.vtc.VTC;
 import com.holub.application.util.InputScanner;
 
 
 public class SignUpView {
-
     private final InputScanner scanner = InputScanner.getInstance();
-    private final CTV ctv;
-
-    public SignUpView(CTV ctv) {
-        this.ctv = ctv;
-    }
 
     public String getString() {
         System.out.print(">> ");
@@ -27,8 +18,7 @@ public class SignUpView {
         return scanner.inputInteger();
     }
 
-    @Override
-    public VTC execute() {
+    public Member execute() {
         // TODO -> validation 추가
         System.out.println("id를 입력해 주세요");
         String id = getString();
@@ -51,10 +41,7 @@ public class SignUpView {
         System.out.println("number를 입력해 주세요");
         String number = getString();
 
-        Member member = new Member(id, password, name, age, gender, number);
-
-        return new SignUpVTC(member);
-
+        return new Member(id, password, name, age, gender, number);
     }
 
 }

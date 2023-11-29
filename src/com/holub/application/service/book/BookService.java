@@ -2,7 +2,6 @@ package com.holub.application.service.book;
 
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.member.Grant;
-import com.holub.application.model.Model;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,5 +31,7 @@ public interface BookService {
 
     // 책 정렬
     public void sortBook(String[] callName, int[] asc);
+
+    public List<Book> getBookList();
 
 }

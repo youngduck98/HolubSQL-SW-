@@ -1,7 +1,6 @@
 package com.holub.application.service.login;
 
 import com.holub.application.domain.member.Grant;
-import com.holub.application.model.Model;
 import com.holub.application.model.vtc.LoginVTC;
 
 public interface LoginService {

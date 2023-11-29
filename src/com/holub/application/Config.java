@@ -16,18 +16,18 @@ import com.holub.application.service.member.MemberServiceImpl;
 import java.io.IOException;
 
 public class Config {
-
+    static String baseUrl = "C:/dp2023";
     public BookService getBookService() throws IOException {
         return BookServiceImpl.getInstance(
-                BookDao.getInstance("", ""),
-                MemberDao.getInstance("", "")
+                BookDao.getInstance(baseUrl, "Book"),
+                MemberDao.getInstance(baseUrl, "Member")
         );
     }
 
     public CheckOutService getCheckOutService() throws IOException {
         return CheckOutServiceImpl.getInstance(
-                CheckOutDao.getInstance("", ""),
-                MemberDao.getInstance("", "")
+                CheckOutDao.getInstance(baseUrl, "CheckOut"),
+                MemberDao.getInstance(baseUrl, "Member")
         );
     }
 
@@ -37,8 +37,14 @@ public class Config {
 
     public MemberService getMemberService() throws IOException {
         return MemberServiceImpl.getInstance(
-                MemberDao.getInstance("", "")
+                MemberDao.getInstance(baseUrl, "Member")
         );
     }
 
+    public void execute() throws Exception{
+        getBookService();
+        getCheckOutService();
+        getLoginService();
+        getMemberService();
+    }
 }

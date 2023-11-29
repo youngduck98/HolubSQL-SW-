@@ -26,7 +26,7 @@ public class MyApplication {
         if(loginToken.getGrant() == Grant.Member){
             mainView = new MainMemberView();
         }
-        MainController mainController = MainController.getInstance(mainView);
-        mainController.execute1();
+        MainController mainController = MainController.getInstance(loginToken , mainView, 0, 50);
+        mainController.execute();
     }
 }

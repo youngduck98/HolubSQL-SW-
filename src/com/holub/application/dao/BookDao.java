@@ -3,14 +3,22 @@ package com.holub.application.dao;
 import com.holub.application.domain.book.Book;
 import com.holub.database.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class BookDao extends Dao{
     private static BookDao uniqueDao;
     private BookDao(String url, String tableName) throws IOException {
         baseUrl = url;
-        this.loadTable(tableName);
+        try {
+            this.loadTable(tableName);
+        }
+        catch (FileNotFoundException e){
+            table = TableFactory.create("Book", Book.getColumnames());
+            this.saveTable();
+        }
     }
 
     public static BookDao getInstance(String url, String tableName) throws IOException {
@@ -99,6 +107,14 @@ public class BookDao extends Dao{
         };
         List<Book> ret = new ArrayList<>();
         for(List<Object> row: TableUtil.makeTableToList(table.select(selector))){
+            ret.add(new Book(row));
+        }
+        return ret;
+    }
+
+    public List<Book> getBookList(){
+        List<Book> ret = new ArrayList<>();
+        for(List<Object> row: TableUtil.makeTableToList(table)){
             ret.add(new Book(row));
         }
         return ret;

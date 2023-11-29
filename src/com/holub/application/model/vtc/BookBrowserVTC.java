@@ -26,7 +26,7 @@ public class BookBrowserVTC implements VTC{
         return asc;
     }
 
-    public String getGenre{
+    public String getGenre(){
         return genre;
     }
 }

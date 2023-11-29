@@ -5,7 +5,6 @@ import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
-import com.holub.application.model.Model;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -17,8 +16,8 @@ import java.util.stream.Collectors;
 public class CheckOutServiceImpl implements CheckOutService{
 
     private static CheckOutService instance;
-    private final CheckOutDao checkOutDao;
-    private final MemberDao memberDao;
+    private CheckOutDao checkOutDao = CheckOutDao.getInstance();
+    private MemberDao memberDao = MemberDao.getInstance();
 
     private CheckOutServiceImpl(CheckOutDao checkOutDao, MemberDao memberDao){
         this.checkOutDao = checkOutDao;
@@ -32,6 +31,12 @@ public class CheckOutServiceImpl implements CheckOutService{
         return instance;
     }
 
+    public static CheckOutService getInstance(){
+        if(instance == null)
+            throw  new NullPointerException();
+        return instance;
+    }
+
     @Override
     public void checkOutBook(Grant grant, CheckOut checkOutInfo) {
         if (checkOutInfo.getUuid() == -1 && grant == Grant.Member) {
@@ -41,8 +46,8 @@ public class CheckOutServiceImpl implements CheckOutService{
 
     @Override
     public void returnBook(Grant grant, Integer returnUuid) {
-        List<Object> checkOutList = checkOutDao.selectTable(
-                Arrays.asList(new Integer[] {returnUuid}), null, null
+        List<Object> checkOutList = checkOutDao.selectTableByUid(
+                Arrays.asList(new Integer[] {returnUuid})
         );
 
         if (!checkOutList.isEmpty() && grant == Grant.Member) {
@@ -52,8 +57,8 @@ public class CheckOutServiceImpl implements CheckOutService{
 
     @Override
     public void extensionDueDate(Grant grant, LocalDate dueDateInfo, Integer dueDateUuid) throws IOException{
-        List<Object> checkOutList = checkOutDao.selectTable(
-                Arrays.asList(new Integer[] {dueDateUuid}), null, null
+        List<Object> checkOutList = checkOutDao.selectTableByUid(
+                Arrays.asList(new Integer[] {dueDateUuid})
         );
 
         if (!checkOutList.isEmpty() && grant == Grant.Manager) {
@@ -68,9 +73,9 @@ public class CheckOutServiceImpl implements CheckOutService{
         if (grant == Grant.Manager) {
             List<CheckOut> list = new ArrayList<>();
 
-            List<Object> checkOutList = checkOutDao.selectTable(uuidList);
+            List<Object> checkOutList = checkOutDao.selectTableByUid(uuidList);
             if (!checkOutList.isEmpty()) {
-                for (Object o : checkOutDao.selectTable(uuidList)) {
+                for (Object o : checkOutDao.selectTableByUid(uuidList)) {
                     list.add((CheckOut) o);
                 }
             }
@@ -97,7 +102,7 @@ public class CheckOutServiceImpl implements CheckOutService{
     }
 
     private Grant getMyGrant(Integer myUuid ) {
-        List<Object> memberList = memberDao.selectTable(
+        List<Object> memberList = memberDao.selectTableByUid(
                 Arrays.asList(new Integer[] {myUuid}));
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);

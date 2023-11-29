@@ -3,6 +3,7 @@ package com.holub.application.dao;
 import com.holub.application.domain.member.Member;
 import com.holub.database.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +14,14 @@ public class MemberDao extends Dao{
     private static MemberDao uniqueDao;
     private MemberDao(String url, String tableName) throws IOException {
         baseUrl = url;
-        this.loadTable(tableName);
+        try {
+            this.loadTable(tableName);
+        }
+        catch (FileNotFoundException e){
+            table = TableFactory.create("Member", Member.getColNames());
+            this.saveTable();
+        }
+
     }
 
     public static MemberDao getInstance(String url, String tableName) throws IOException {
@@ -66,6 +74,7 @@ public class MemberDao extends Dao{
 
     public void insertTable(List<Object> domainList) {
         int nextUid = TableUtil.getHighIndex(table) + 1;
+        System.out.println("calculated uid for member");
         for(Object member: domainList){
             ((Member)member).setUuid(nextUid);
             table.insert(((Member)member).toList());

@@ -2,7 +2,6 @@ package com.holub.application.service.member;
 
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
-import com.holub.application.model.Model;
 
 import java.util.List;
 

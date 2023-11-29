@@ -42,6 +42,10 @@ public class CheckOut {
         );
     }
 
+    public static String[] getColNames(){
+        return new String[]{"uuid", "memberUuid", "bookUuid", "rentalDate", "dueDate"};
+    }
+
     public Integer getUuid() {
         return uuid;
     }
