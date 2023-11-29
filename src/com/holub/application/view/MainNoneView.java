@@ -1,5 +1,5 @@
 package com.holub.application.view;
-
+/*
 import com.holub.application.model.Model;
 import com.holub.application.util.InputStorage;
 
@@ -30,3 +30,4 @@ public class MainNoneView implements View{
     }
 
 }
+*/

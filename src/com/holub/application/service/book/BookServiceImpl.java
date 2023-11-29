@@ -79,8 +79,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private Grant getMyGrant(Integer myUuid) {
-        List<Object> memberList = memberDao.selectTable(
-                Arrays.asList(new Integer[] {myUuid}), null, null);
+        List<Object> memberList = memberDao.selectTable(Arrays.asList(myUuid));
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();

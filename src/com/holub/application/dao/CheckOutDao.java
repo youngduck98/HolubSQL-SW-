@@ -1,5 +1,6 @@
 package com.holub.application.dao;
 
+import com.holub.application.domain.book.Book;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.database.*;
 
@@ -35,6 +36,19 @@ public class CheckOutDao extends Dao {
             newDataSet.add(new CheckOut(row));
         }
 
+        return newDataSet;
+    }
+
+    @Override
+    public List<Object> selectTable(List<Integer> uuidList) {
+        List<List<Object>> map = TableUtil.makeTableToList(table);
+        Set<Object> uuidSet = new HashSet<>(uuidList);
+        List<Object> newDataSet = new ArrayList<>();
+        for(List<Object> row: map){
+            if(!uuidSet.contains(row.get(0)))
+                continue;
+            newDataSet.add(new CheckOut(row));
+        }
         return newDataSet;
     }
 

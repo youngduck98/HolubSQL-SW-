@@ -41,9 +41,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member findOneMember(Integer uuid, String[] colName, int[] asc) {
+    public Member findOneMember(Integer uuid) {
         // TODO
-        List<Object> ret = memberDao.selectTable(Arrays.asList(new Integer[]{uuid}), colName, asc);
+        List<Object> ret = memberDao.selectTable(Arrays.asList(new Integer[]{uuid}));
         if(ret == null)
             throw  new NullPointerException();
         if(ret.isEmpty())
@@ -52,8 +52,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<Member> findMember(List<Integer> uuids, String[] colName, int[] asc) {
-        List<Object> output = memberDao.selectTable(uuids, colName, asc);
+    public void sortMember(String[] colName, int[] asc) {
+        memberDao.sortTable(colName, asc);
+    }
+
+    @Override
+    public List<Member> findMember(List<Integer> uuids) {
+        List<Object> output = memberDao.selectTable(uuids);
         if(output == null)
             throw new NullPointerException();
         //들어온 uuid list의 길이와 나온 Member list의 길이가 다르면 illegalargumentException

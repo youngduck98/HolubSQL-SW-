@@ -11,11 +11,11 @@ public class Model {
     VTC Input;
     Object myInfo;
 
-    public Object getState() {
+    public CTV getState() {
         return state;
     }
 
-    public Object getInput() {
+    public VTC getInput() {
         return Input;
     }
 

@@ -64,19 +64,24 @@ public class CheckOutServiceImpl implements CheckOutService{
     }
 
     @Override
-    public List<CheckOut> getCheckOutList(Grant grant, List<Integer> uuidList, String[] callName, int[] asc) {
+    public List<CheckOut> getCheckOutList(Grant grant, List<Integer> uuidList) {
         if (grant == Grant.Manager) {
             List<CheckOut> list = new ArrayList<>();
 
-            List<Object> checkOutList = checkOutDao.selectTable(uuidList, callName, asc);
+            List<Object> checkOutList = checkOutDao.selectTable(uuidList);
             if (!checkOutList.isEmpty()) {
-                for (Object o : checkOutDao.selectTable(uuidList, callName, asc)) {
+                for (Object o : checkOutDao.selectTable(uuidList)) {
                     list.add((CheckOut) o);
                 }
             }
             return list;
         }
         return null;
+    }
+
+    @Override
+    public void sortCheckOut(String[] callName, int[] asc) {
+        checkOutDao.sortTable(callName, asc);
     }
 
     @Override
@@ -93,7 +98,7 @@ public class CheckOutServiceImpl implements CheckOutService{
 
     private Grant getMyGrant(Integer myUuid ) {
         List<Object> memberList = memberDao.selectTable(
-                Arrays.asList(new Integer[] {myUuid}), null, null);
+                Arrays.asList(new Integer[] {myUuid}));
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();

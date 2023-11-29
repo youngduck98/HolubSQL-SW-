@@ -22,7 +22,9 @@ public interface CheckOutService {
     public void extensionDueDate(Grant grant, LocalDate dueDateInfo, Integer dueDateUuid) throws IOException;
 
     // uuid 리스트를 사용해서 찾은 대출정보 리턴 -> 관리자가 checkOutTable 모두 받을때 사용
-    public List<CheckOut> getCheckOutList(Grant grant, List<Integer> uuidList, String[] callName, int[] asc) throws IOException;
+    public List<CheckOut> getCheckOutList(Grant grant, List<Integer> uuidList) throws IOException;
+
+    public void sortCheckOut(String[] callName, int[] asc);
 
     // 나의 CheckOutList정보 반환
     public List<CheckOut> getMyCheckOutInfo(Integer myUuid);

@@ -23,9 +23,7 @@ public class MemberDao extends Dao{
         return uniqueDao;
     }
 
-    public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
-        if(callName != null && asc != null)
-            table.accept(new TableVisitorOrderBy(callName, asc));
+    public List<Object> selectTable(List<Integer> uuidList) {
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();

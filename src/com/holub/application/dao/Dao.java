@@ -24,8 +24,13 @@ public abstract class Dao {
         // TODO
     }
 
+    public List<Object> sortTable(String[] callName, int[] asc){
+        if(callName != null && asc != null)
+            table.accept(new TableVisitorOrderBy(callName, asc));
+        throw new IllegalArgumentException("sortTable");
+    }
+
     public abstract List<Object> selectTable(List<Integer> uuidList);
-    public abstract List<Object> sortTable(String[] callName, int[] asc);
     public abstract void insertTable(List<Object> domainList);
     public abstract void updateTable(Object updateInfo) throws IOException;
     public abstract Table returnTable();

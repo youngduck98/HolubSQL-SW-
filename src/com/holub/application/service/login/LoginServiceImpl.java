@@ -26,38 +26,30 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public void login(Model model) {
-        Grant grant = getMyGrant(model);
+    public Integer login(Grant grant, String id, String password) {
 
         if (grant == Grant.None) {
-            String id = (String) model.getAttribute("id");
-            String password = (String) model.getAttribute("password");
 
             Object temp = memberDao.findByIdAndPassword(id, password);
 
-            model.clearAttribute();
             if (temp != null) {
                 Member member = (Member) temp;
-                model.addAttribute("myInfo", (Integer) (member.getUuid()));
+                return member.getUuid();
             }
         }
+        throw new IllegalArgumentException();
     }
 
     @Override
-    public void logout(Model model) {
-        model.removeAttribute("myInfo");
-        model.clearAttribute();
+    public void logout(Integer myUuid) {
+        //TODO
     }
 
-    private Grant getMyGrant(Model model) {
+    private Grant getMyGrant(Integer myUuid) {
+        if(myUuid == null)
+            throw new NullPointerException();
 
-        if (!model.containsAttribute("myInfo"))
-            return Grant.None;
-
-        Integer myUuid = (Integer) model.getAttribute("myInfo");
-
-        List<Object> memberList = memberDao.selectTable(
-                Arrays.asList(new Integer[] {myUuid}), null, null);
+        List<Object> memberList = memberDao.selectTable(Arrays.asList(new Integer[] {myUuid}));
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();
