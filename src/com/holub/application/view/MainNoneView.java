@@ -1,9 +1,10 @@
 package com.holub.application.view;
-/*
-import com.holub.application.model.Model;
-import com.holub.application.util.InputStorage;
 
-public class MainNoneView implements View{
+import com.holub.application.model.Model;
+
+import java.util.List;
+
+public class MainNoneView extends View {
 
     // 메뉴 출력
     public void showMenu() {
@@ -19,15 +20,15 @@ public class MainNoneView implements View{
     
     // 입력 받기
     public void getMenu() {
-        storage.getInput();
+        //storage.getInput();
     }
 
     @Override
-    public void execute(Model model) {
+    public List<String> execute(Model model) {
         showMenu();
         showBookList(model);
         getMenu();
+        return null;
     }
 
 }
-*/

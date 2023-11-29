@@ -6,11 +6,8 @@ import com.holub.application.domain.book.Book;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.model.Model;
 import com.holub.application.model.vtc.BookVTC;
-import com.holub.application.model.ctv.CTV;
-import com.holub.application.model.vtc.VTC;
 import com.holub.application.service.book.BookService;
 import com.holub.application.service.book.BookServiceImpl;
-import com.holub.application.view.MainMemberView;
 import com.holub.application.view.View;
 
 import java.util.List;
