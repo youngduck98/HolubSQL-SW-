@@ -32,62 +32,36 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBookList(Model model) {
+    public List<Book> getBookList(List<Integer> uuidList, String[] callName, int[] asc) {
         List<Book> list = new ArrayList<>();
 
-        List<Integer> uuidList = (List<Integer>) model.getAttribute("uuidList");
-        String[] callName = (String[]) model.getAttribute("callName");
-        int[] asc = (int[]) model.getAttribute("asc");
-
-        List<Object> bookList = bookDao.selectTable(uuidList, callName, asc);
-        if (!bookList.isEmpty()) {
-            for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
-                list.add((Book) o);
-            }
-
-            model.clearAttribute();
-            return list;
+        for (Object o : bookDao.selectTable(uuidList, callName, asc)) {
+            list.add((Book) o);
         }
 
-        model.clearAttribute();
-        return null;
+        return list;
     }
 
     @Override
-    public void addBook(Model model) {
-        Grant grant = getMyGrant(model);
-        Book bookInfo = (Book) model.getAttribute("addBookInfo");
-
+    public void addBook(Grant grant, Book bookInfo) {
         if (bookInfo.getUuid() == -1 && grant == Grant.Manager){
             bookDao.insertTable(Arrays.asList(new Book[] {bookInfo}));
         }
-
-        model.clearAttribute();
     }
 
     @Override
-    public void deleteBook(Model model) throws IOException {
-        Grant grant = getMyGrant(model);
-
+    public void deleteBook(Grant grant, Book book) throws IOException {
         if (grant == Grant.Manager) {
-            Book book = getBookList(model).get(0);
             book.setCheckOutState(CheckOutState.Deleted);
             bookDao.updateTable(book);
         }
-
-        model.clearAttribute();
     }
 
     @Override
-    public void modifyBookInfo(Model model) throws IOException{
-        Grant grant = getMyGrant(model);
-        Book bookInfo = (Book) model.getAttribute("modifyBookInfo");
-
+    public void modifyBookInfo(Grant grant, Book bookInfo) throws IOException{
         if (grant == Grant.Manager) {
             bookDao.updateTable(bookInfo);
         }
-
-        model.clearAttribute();
     }
 
     @Override
@@ -96,20 +70,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getOnlySpecialGenre(Model model) {
-        String genre = (String) model.getAttribute("genre");
-        model.clearAttribute();
-
+    public List<Book> getOnlySpecialGenre(String genre) {
         return bookDao.getGenresBook(genre);
     }
-
-    private Grant getMyGrant(Model model) {
-
-        if (!model.containsAttribute("myInfo"))
-            return Grant.None;
-
-        Integer myUuid = (Integer) model.getAttribute("myInfo");
-
+    private Grant getMyGrant(Integer myUuid) {
         List<Object> memberList = memberDao.selectTable(
                 Arrays.asList(new Integer[] {myUuid}), null, null);
         if (!memberList.isEmpty()){

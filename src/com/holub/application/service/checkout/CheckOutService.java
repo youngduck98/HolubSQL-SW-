@@ -13,17 +13,17 @@ import java.util.List;
 public interface CheckOutService {
 
     // 책 빌리기
-    public void checkOutBook(Model model);
+    public void checkOutBook(Grant grant, CheckOut checkOutInfo);
 
     // uuid를 사용해서 책 반납하기
-    public void returnBook(Model model);
+    public void returnBook(Grant grant, Integer returnUuid);
     
     // uuid를 사용해서 책 연장하기
-    public void extensionDueDate(Model model) throws IOException;
+    public void extensionDueDate(Grant grant, LocalDate dueDateInfo, Integer dueDateUuid) throws IOException;
 
     // uuid 리스트를 사용해서 찾은 대출정보 리턴 -> 관리자가 checkOutTable 모두 받을때 사용
-    public List<CheckOut> getCheckOutList(Model model) throws IOException;
+    public List<CheckOut> getCheckOutList(Grant grant, List<Integer> uuidList, String[] callName, int[] asc) throws IOException;
 
     // 나의 CheckOutList정보 반환
-    public List<CheckOut> getMyCheckOutInfo(Model model);
+    public List<CheckOut> getMyCheckOutInfo(Integer myUuid);
 }

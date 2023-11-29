@@ -28,9 +28,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void addMember(Model model) {
-        // TODO
-        Member member = (Member) model.getAttribute("memberInfo");
+    public void addMember(Member member) {
         memberDao.insertTable(member.toList());
     }
 
@@ -43,11 +41,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member findOneMember(Model model) {
+    public Member findOneMember(Integer uuid, String[] colName, int[] asc) {
         // TODO
-        Integer uuid = (Integer) model.getAttribute("memberUuid");
-        String[] colName = (String[]) model.getAttribute("sortColName");
-        int[] asc = (int[]) model.getAttribute("asc");
         List<Object> ret = memberDao.selectTable(Arrays.asList(new Integer[]{uuid}), colName, asc);
         if(ret == null)
             throw  new NullPointerException();
@@ -58,10 +53,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<Member> findMember(Model model) {
-        List<Integer> uuids = (List<Integer>) model.getAttribute("uuidList");
-        String[] colName = (String[]) model.getAttribute("sortColName");
-        int[] asc = (int[]) model.getAttribute("asc");
+    public List<Member> findMember(List<Integer> uuids, String[] colName, int[] asc) {
         List<Object> output = memberDao.selectTable(uuids, colName, asc);
         if(output == null)
             throw new NullPointerException();
@@ -69,20 +61,16 @@ public class MemberServiceImpl implements MemberService{
         //없는 uuid를 포함하였다는 의미이므로
         if(uuids.size() != output.size())
             throw new IllegalArgumentException();
-        model.clearAttribute();
         return makeMemberListFromObjectList(output);
     }
 
     @Override
-    public void fixMemberInfo(Model model) {
-        Member member = (Member) model.getAttribute("memberfixInfo");
+    public void fixMemberInfo(Member member) {
         try {
             memberDao.updateTable(member);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        model.clearAttribute();
         // TODO
     }
 }
