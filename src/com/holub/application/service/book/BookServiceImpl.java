@@ -88,9 +88,19 @@ public class BookServiceImpl implements BookService {
     }
 
     private Grant getMyGrant(Model model) {
+
+        if (!model.containsAttribute("myInfo"))
+            return Grant.None;
+
         Integer myUuid = (Integer) model.getAttribute("myInfo");
-        Member myMember = (Member) memberDao.selectTable(
-                Arrays.asList(new Integer[] {myUuid}), null, null).get(0);
-        return myMember.getGrant();
+
+        List<Object> memberList = memberDao.selectTable(
+                Arrays.asList(new Integer[] {myUuid}), null, null);
+        if (!memberList.isEmpty()){
+            Member myMember = (Member) memberList.get(0);
+            return myMember.getGrant();
+        }
+
+        return Grant.None;
     }
 }

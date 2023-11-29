@@ -22,6 +22,8 @@ public interface CheckOutService {
     public void extensionDueDate(Model model) throws IOException;
 
     // uuid 리스트를 사용해서 찾은 대출정보 리턴 -> 관리자가 checkOutTable 모두 받을때 사용
-    public List<CheckOut> searchCheckOut(Model model);
+    public List<CheckOut> getCheckOutList(Model model) throws IOException;
 
+    // 나의 CheckOutList정보 반환
+    public List<CheckOut> getMyCheckOutInfo(Model model);
 }
