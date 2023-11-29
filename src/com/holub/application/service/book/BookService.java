@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookService {
 
     // uuid 리스트를 받아서 Book 리스트 반환
-    public List<Book> getBookList(List<Integer> uuidList, String[] callName, int[] asc);
+    public List<Book> getBookList(List<Integer> uuidList);
 
     // bookInfo를 받아서 book 추가
     public void addBook(Grant grant, Book bookInfo);
@@ -27,5 +27,8 @@ public interface BookService {
     
     // 입력받은 장르의 책 반환
     public List<Book> getOnlySpecialGenre(String genre);
+
+    // 책 정렬
+    public void sortBook(String[] callName, int[] asc);
 
 }

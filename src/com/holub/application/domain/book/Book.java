@@ -15,8 +15,9 @@ public class Book {
     private Location location;              // 위치 -> 서울, 안성
     private CheckOutState checkOutState;    // 상태 -> 대여 가능, 대여 불가, 삭제
     private String genre;                   // 장르
+    private Integer numOfCheckout;          // 빌린 책 횟수
 
-    public Book(Integer uuid, String title, String author, LocalDate publicationDate, LocalDate registrationDate, Integer quantity, Location location, CheckOutState checkOutState, String genre) {
+    public Book(Integer uuid, String title, String author, LocalDate publicationDate, LocalDate registrationDate, Integer quantity, Location location, CheckOutState checkOutState, String genre, Integer numOfCheckout) {
         this.uuid = uuid;
         this.title = title;
         this.author = author;
@@ -26,6 +27,7 @@ public class Book {
         this.location = location;
         this.checkOutState = checkOutState;
         this.genre = genre;
+        this.numOfCheckout = numOfCheckout;
     }
 
     public Book(List<Object> row){
@@ -38,9 +40,10 @@ public class Book {
         this.location = (Location) row.get(6);
         this.checkOutState = (CheckOutState) row.get(7);
         this.genre = (String) row.get(8);
+        this.numOfCheckout = (Integer) row.get(9);
     }
 
-    public Book(String title, String author, LocalDate publicationDate, LocalDate registrationDate, Integer quantity, Location location, CheckOutState checkOutState, String genre) {
+    public Book(String title, String author, LocalDate publicationDate, LocalDate registrationDate, Integer quantity, Location location, CheckOutState checkOutState, String genre, Integer numOfCheckout) {
         this.uuid = -1;
         this.title = title;
         this.author = author;
@@ -50,6 +53,7 @@ public class Book {
         this.location = location;
         this.checkOutState = checkOutState;
         this.genre = genre;
+        this.numOfCheckout = numOfCheckout;
     }
 
     public List<Object> toList() {
@@ -128,5 +132,13 @@ public class Book {
 
     public void setCheckOutState(CheckOutState checkOutState) {
         this.checkOutState = checkOutState;
+    }
+
+    public Integer getNumOfCheckout() {
+        return numOfCheckout;
+    }
+
+    public void setNumOfCheckout(Integer numOfCheckout) {
+        this.numOfCheckout = numOfCheckout;
     }
 }

@@ -20,9 +20,13 @@ public class BookDao extends Dao{
         return uniqueDao;
     }
 
-    public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
+    public List<Object> sortTable(String[] callName, int[] asc){
         if(callName != null && asc != null)
             table.accept(new TableVisitorOrderBy(callName, asc));
+        throw new IllegalArgumentException("sortTable");
+    }
+
+    public List<Object> selectTable(List<Integer> uuidList) {
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
