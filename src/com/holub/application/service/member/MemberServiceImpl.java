@@ -74,15 +74,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void fixMemberInfo(Model model) {
-        Member member = (Member) model.getAttribute("memberfixInfo");
+    public void fixMemberInfo(Member member) {
         try {
             memberDao.updateTable(member);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        model.clearAttribute();
         // TODO
     }
 }
