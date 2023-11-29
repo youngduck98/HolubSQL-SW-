@@ -24,9 +24,11 @@ public abstract class Dao {
         // TODO
     }
 
-    public List<Object> sortTable(String[] callName, int[] asc){
-        if(callName != null && asc != null)
+    public void sortTable(String[] callName, int[] asc){
+        if(callName != null && asc != null) {
             table.accept(new TableVisitorOrderBy(callName, asc));
+            return;
+        }
         throw new IllegalArgumentException("sortTable");
     }
 
