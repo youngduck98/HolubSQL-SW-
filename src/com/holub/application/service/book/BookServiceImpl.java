@@ -52,14 +52,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Model model) throws IOException {
         Grant grant = getMyGrant(model);
-
         if (grant == Grant.Manager) {
             Book book = getBookList(model).get(0);
             book.setCheckOutState(CheckOutState.Deleted);
             bookDao.updateTable(book);
         }
 
-        model.clearAttribute();
     }
 
     @Override
