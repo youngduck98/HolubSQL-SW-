@@ -20,12 +20,37 @@ public class BookDao extends Dao{
         return uniqueDao;
     }
 
-    public List<Object> selectTable(List<Integer> uuidList) {
+    public List<Object> selectTableByUid(List<Integer> uuidList) {
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
             if(!uuidSet.contains(row.get(0)))
+                continue;
+            newDataSet.add(new Book(row));
+        }
+        return newDataSet;
+    }
+
+    public List<Object> selectTableByCol(Object[] nameList, String colName){
+        return selectTableByCol(new ArrayList<>(Arrays.asList(nameList)), colName);
+    }
+
+    public List<Object> selectTableByCol(List<Object> nameList, String colName) {
+        List<List<Object>> map = TableUtil.makeTableToList(table);
+        int index = 0;
+        String[] colNames = TableUtil.getColName(table);
+        for(String col: colNames){
+            if(col.equals(colName))
+                break;
+            if(colNames.length <= ++index)
+                throw new IllegalArgumentException("no col name like that");
+        }
+
+        Set<Object> uuidSet = new HashSet<>(nameList);
+        List<Object> newDataSet = new ArrayList<>();
+        for(List<Object> row: map){
+            if(!uuidSet.contains(row.get(index)))
                 continue;
             newDataSet.add(new Book(row));
         }

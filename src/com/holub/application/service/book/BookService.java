@@ -11,7 +11,9 @@ import java.util.List;
 public interface BookService {
 
     // uuid 리스트를 받아서 Book 리스트 반환
-    public List<Book> getBookList(List<Integer> uuidList);
+    public List<Book> getBookListByUid(List<Integer> uuidList);
+
+    public List<Book> getBookByName(String bookName);
 
     // bookInfo를 받아서 book 추가
     public void addBook(Grant grant, Book bookInfo);

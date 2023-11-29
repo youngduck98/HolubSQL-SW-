@@ -32,7 +32,7 @@ public abstract class Dao {
         throw new IllegalArgumentException("sortTable");
     }
 
-    public abstract List<Object> selectTable(List<Integer> uuidList);
+    public abstract List<Object> selectTableByUid(List<Integer> uuidList);
     public abstract void insertTable(List<Object> domainList);
     public abstract void updateTable(Object updateInfo) throws IOException;
     public abstract Table returnTable();

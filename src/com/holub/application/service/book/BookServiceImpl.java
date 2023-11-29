@@ -32,12 +32,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBookList(List<Integer> uuidList) {
+    public List<Book> getBookListByUid(List<Integer> uuidList) {
         List<Book> list = new ArrayList<>();
-        for (Object o : bookDao.selectTable(uuidList)) {
+        for (Object o : bookDao.selectTableByUid(uuidList)) {
             list.add((Book) o);
         }
 
+        return list;
+    }
+
+    @Override
+    public List<Book> getBookByName(String bookName) {
+        List<Book> list = new ArrayList<>();
+
+        for(Object o: bookDao.selectTableByCol(new String[]{bookName}, "name")){
+            list.add((Book) o);
+        }
         return list;
     }
 
@@ -79,7 +89,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private Grant getMyGrant(Integer myUuid) {
-        List<Object> memberList = memberDao.selectTable(Arrays.asList(myUuid));
+        List<Object> memberList = memberDao.selectTableByUid(Arrays.asList(myUuid));
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();

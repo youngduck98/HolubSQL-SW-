@@ -24,9 +24,8 @@ public class CheckOutDao extends Dao {
         return uniqueDao;
     }
 
-    public List<Object> selectTable(List<Integer> uuidList, String[] callName, int[] asc) {
-        if(callName != null && asc != null)
-            table.accept(new TableVisitorOrderBy(callName, asc));
+    @Override
+    public List<Object> selectTableByUid(List<Integer> uuidList) {
         List<List<Object>> map = TableUtil.makeTableToList(table);
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
@@ -35,17 +34,24 @@ public class CheckOutDao extends Dao {
                 continue;
             newDataSet.add(new CheckOut(row));
         }
-
         return newDataSet;
     }
 
-    @Override
-    public List<Object> selectTable(List<Integer> uuidList) {
+    public List<Object> selectTableByCol(List<String> nameList, String colName){
         List<List<Object>> map = TableUtil.makeTableToList(table);
-        Set<Object> uuidSet = new HashSet<>(uuidList);
+        int index = 0;
+        String[] colNames = TableUtil.getColName(table);
+        for(String col: colNames){
+            if(col.equals(colName))
+                break;
+            if(colNames.length <= ++index)
+                throw new IllegalArgumentException("no col name like that");
+        }
+
+        Set<Object> uuidSet = new HashSet<>(nameList);
         List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
-            if(!uuidSet.contains(row.get(0)))
+            if(!uuidSet.contains(row.get(index)))
                 continue;
             newDataSet.add(new CheckOut(row));
         }

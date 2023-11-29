@@ -123,4 +123,8 @@ public class TableUtil {
         return maxUUid;
     }
 
+    public static String[] getColName(Table table){
+        ConcreteTable extractedTable = TableUtil.extractTable(table);
+        return extractedTable.getColumnNames();
+    }
 }
