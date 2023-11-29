@@ -33,21 +33,14 @@ public class CheckOutServiceImpl implements CheckOutService{
     }
 
     @Override
-    public void checkOutBook(Model model) {
-        Grant grant = getMyGrant(model);
-        CheckOut checkOutInfo = (CheckOut) model.getAttribute("addCheckOutInfo");
-
+    public void checkOutBook(Grant grant, CheckOut checkOutInfo) {
         if (checkOutInfo.getUuid() == -1 && grant == Grant.Member) {
             checkOutDao.insertTable(Arrays.asList(new CheckOut[] {checkOutInfo}));
         }
-
-        model.clearAttribute();
     }
 
     @Override
-    public void returnBook(Model model) {
-        Grant grant = getMyGrant(model);
-        Integer returnUuid = (Integer) model.getAttribute("returnUuid");
+    public void returnBook(Grant grant, Integer returnUuid) {
         List<Object> checkOutList = checkOutDao.selectTable(
                 Arrays.asList(new Integer[] {returnUuid}), null, null
         );
@@ -55,15 +48,10 @@ public class CheckOutServiceImpl implements CheckOutService{
         if (!checkOutList.isEmpty() && grant == Grant.Member) {
             checkOutDao.deleteRow(returnUuid);
         }
-
-        model.clearAttribute();
     }
 
     @Override
-    public void extensionDueDate(Model model) throws IOException{
-        Grant grant = getMyGrant(model);
-        LocalDate dueDateInfo = (LocalDate) model.getAttribute("extensionDueDateInfo");
-        Integer dueDateUuid = (Integer) model.getAttribute("extensionDueDateUuid");
+    public void extensionDueDate(Grant grant, LocalDate dueDateInfo, Integer dueDateUuid) throws IOException{
         List<Object> checkOutList = checkOutDao.selectTable(
                 Arrays.asList(new Integer[] {dueDateUuid}), null, null
         );
@@ -73,20 +61,12 @@ public class CheckOutServiceImpl implements CheckOutService{
             checkOut.setDueDate(dueDateInfo);
             checkOutDao.updateTable(checkOut);
         }
-
-        model.clearAttribute();
     }
 
     @Override
-    public List<CheckOut> getCheckOutList(Model model) {
-        Grant grant = getMyGrant(model);
-
+    public List<CheckOut> getCheckOutList(Grant grant, List<Integer> uuidList, String[] callName, int[] asc) {
         if (grant == Grant.Manager) {
             List<CheckOut> list = new ArrayList<>();
-
-            List<Integer> uuidList = (List<Integer>) model.getAttribute("uuidList");
-            String[] callName = (String[]) model.getAttribute("callName");
-            int[] asc = (int[]) model.getAttribute("asc");
 
             List<Object> checkOutList = checkOutDao.selectTable(uuidList, callName, asc);
             if (!checkOutList.isEmpty()) {
@@ -94,17 +74,15 @@ public class CheckOutServiceImpl implements CheckOutService{
                     list.add((CheckOut) o);
                 }
             }
-            model.clearAttribute();
             return list;
         }
 
-        model.clearAttribute();
+
         return null;
     }
 
     @Override
-    public List<CheckOut> getMyCheckOutInfo(Model model) {
-        Integer myUuid = (Integer) model.getAttribute("myInfo");
+    public List<CheckOut> getMyCheckOutInfo(Integer myUuid) {
         List<Object> checkOutList = checkOutDao.findCheckoutListFromUser(myUuid);
 
         if (!checkOutList.isEmpty())
@@ -115,20 +93,13 @@ public class CheckOutServiceImpl implements CheckOutService{
             return null;
     }
 
-    private Grant getMyGrant(Model model) {
-
-        if (!model.containsAttribute("myInfo"))
-            return Grant.None;
-
-        Integer myUuid = (Integer) model.getAttribute("myInfo");
-
+    private Grant getMyGrant(Integer myUuid ) {
         List<Object> memberList = memberDao.selectTable(
                 Arrays.asList(new Integer[] {myUuid}), null, null);
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();
         }
-
         return Grant.None;
     }
 
