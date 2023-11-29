@@ -25,7 +25,7 @@ public class Member {
         this.grant = grant;
     }
 
-    public Member(String id, String password, String name, Integer age, Gender gender, String number, Grant grant) {
+    public Member(String id, String password, String name, Integer age, Gender gender, String number) {
         this.uuid = -1;
         this.id = id;
         this.password = password;
@@ -33,7 +33,7 @@ public class Member {
         this.age = age;
         this.gender = gender;
         this.number = number;
-        this.grant = grant;
+        this.grant = Grant.Member;
     }
 
     public Member(List<Object> row) {
