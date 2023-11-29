@@ -32,9 +32,7 @@ public class Config {
     }
 
     public LoginService getLoginService() throws IOException {
-        return LoginServiceImpl.getInstance(
-                MemberDao.getInstance("", "")
-        );
+        return LoginServiceImpl.getInstance();
     }
 
     public MemberService getMemberService() throws IOException {

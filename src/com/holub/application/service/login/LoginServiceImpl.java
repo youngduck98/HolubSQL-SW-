@@ -5,6 +5,7 @@ import com.holub.application.dao.MemberDao;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
 import com.holub.application.model.Model;
+import com.holub.application.model.vtc.LoginVTC;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,19 +19,19 @@ public class LoginServiceImpl implements LoginService{
         this.memberDao = memberDao;
     }
 
-    public static LoginService getInstance(MemberDao memberDao){
+    public static LoginService getInstance(){
         if (instance == null) {
-            instance = new LoginServiceImpl(memberDao);
+            instance = new LoginServiceImpl(MemberDao.getInstance());
         }
         return instance;
     }
 
     @Override
-    public Integer login(Grant grant, String id, String password) {
+    public Integer login(LoginVTC vtc) {
 
-        if (grant == Grant.None) {
+        if (vtc.getGrant() == Grant.None) {
 
-            Object temp = memberDao.findByIdAndPassword(id, password);
+            Object temp = memberDao.findByIdAndPassword(vtc.getId(), vtc.getPassword());
 
             if (temp != null) {
                 Member member = (Member) temp;
@@ -49,7 +50,7 @@ public class LoginServiceImpl implements LoginService{
         if(myUuid == null)
             throw new NullPointerException();
 
-        List<Object> memberList = memberDao.selectTable(Arrays.asList(new Integer[] {myUuid}));
+        List<Object> memberList = memberDao.selectTableByUid(Arrays.asList(new Integer[] {myUuid}));
         if (!memberList.isEmpty()){
             Member myMember = (Member) memberList.get(0);
             return myMember.getGrant();

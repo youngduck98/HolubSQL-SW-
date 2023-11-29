@@ -23,7 +23,13 @@ public class MemberDao extends Dao{
         return uniqueDao;
     }
 
-    public List<Object> selectTableByUid(List<Integer> nameList, String colName) {
+    public static MemberDao getInstance(){
+        if(uniqueDao == null)
+            throw new NullPointerException();
+        return uniqueDao;
+    }
+
+    public List<Object> selectTableByCol(List<Integer> nameList, String colName) {
         List<List<Object>> map = TableUtil.makeTableToList(table);
 
         int index = 0;
@@ -36,6 +42,19 @@ public class MemberDao extends Dao{
         }
 
         Set<Object> uuidSet = new HashSet<>(nameList);
+        List<Object> newDataSet = new ArrayList<>();
+        for(List<Object> row: map){
+            if(!uuidSet.contains(row.get(0)))
+                continue;
+            newDataSet.add(new Member(row));
+        }
+        return newDataSet;
+    }
+
+    @Override
+    public List<Object> selectTableByUid(List<Integer> uuidList) {
+        List<List<Object>> map = TableUtil.makeTableToList(table);
+        Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
             if(!uuidSet.contains(row.get(0)))

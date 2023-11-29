@@ -8,14 +8,12 @@ import com.holub.application.model.Model;
 import com.holub.application.model.vtc.BookVTC;
 import com.holub.application.service.book.BookService;
 import com.holub.application.service.book.BookServiceImpl;
-import com.holub.application.view.View;
 
 import java.util.List;
 
 public class BookController {
     private static BookController bc;
     private static BookService bookService;
-    private static View view;
 
     private BookController(BookDao bookDao, MemberDao memberDao){
         bookService = BookServiceImpl.getInstance(bookDao, memberDao);

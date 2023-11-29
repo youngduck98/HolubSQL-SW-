@@ -2,11 +2,10 @@ package com.holub.application.view;
 
 import com.holub.application.util.InputScanner;
 
-public class MainManagerView extends MainView{
+public abstract class MainView {
 
     private final InputScanner scanner = InputScanner.getInstance();
 
-    // 메뉴 출력
     public void showMenu() {
         System.out.println("(0)로그 아웃 (1)내 정보 (2)회원 정보/수정 (3)대출 정보/연장");
         System.out.println("(4)책 검색 (5)책 정렬 (6)책 등록 (7)책 수정");

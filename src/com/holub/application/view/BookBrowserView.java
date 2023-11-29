@@ -1,20 +1,12 @@
 package com.holub.application.view;
 
-import com.holub.application.model.Model;
-import com.holub.application.model.ctv.CTV;
-import com.holub.application.model.vtc.VTC;
 import com.holub.application.util.InputScanner;
 
 import java.util.List;
 
-public class BookBrowserView implements View {
+public class BookBrowserView{
 
     private final InputScanner scanner = InputScanner.getInstance();
-    private final CTV ctv;
-
-    public BookBrowserView(CTV ctv) {
-        this.ctv = ctv;
-    }
 
     // String 입력 받기
     public String getString() {
