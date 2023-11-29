@@ -12,8 +12,7 @@ public abstract class MainView {
     private final InputScanner scanner = InputScanner.getInstance();
 
     public void showMenu() {
-        System.out.println("(0)로그 아웃 (1)내 정보 (2)회원 정보/수정 (3)대출 정보/연장");
-        System.out.println("(4)책 검색 (5)책 정렬 (6)책 등록 (7)책 수정");
+        System.out.println("(0)로그 아웃 (1)내 정보 (3)대출 정보/반납 (4)책 검색 (5)책 정렬 (6)책 대출");
         System.out.println("(Q)이전 페이지 (W)다음 페이지 ");
     }
 
@@ -71,12 +70,13 @@ public abstract class MainView {
         return str;
     }
 
-    public String getColName() throws ClassNotFoundException {
-        Field[] field = Class.forName("Book").getDeclaredFields();
+    public String getColName() {
         List<String> fieldNames = new ArrayList<>();
-        for(Field o: field){
-            fieldNames.add(o + "");
+        for(String str: Book.getColumnames()){
+            System.out.print(str + " ");
+            fieldNames.add(str);
         }
+        System.out.println();
         return getStringInList(fieldNames);
     }
 
@@ -84,16 +84,16 @@ public abstract class MainView {
         String asc = getString("input ascend = 1/descend = -1");
         if(!(asc.equals("1") || asc.equals("-1")))
             return getAsc();
-        return Integer.getInteger(asc);
+        return Integer.parseInt(asc);
     }
 
     // TODO -> 이거 따로 빼는게 좋을것 같음 중복 된다.
     public boolean isSelectedMenuValid(String selectedMenu) {
         switch(selectedMenu){
-            case "1": case "2": case "3":
+            case "1": case "3":
             case "4": case "5": case "Q":
             case "W": case "q": case "w":
-            case "6": case "7": case "0":
+            case "6": case "0":
                 return true;
             default:
                 return false;

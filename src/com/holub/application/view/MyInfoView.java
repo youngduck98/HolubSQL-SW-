@@ -9,9 +9,8 @@ public class MyInfoView {
     // 책 리스트 출력
     public static void showMyInfo(Member member) {
         // CTV에서 내 정보를 찾아서 출력
-        Field[] fields = member.getClass().getFields();
-        for(Field f: fields){
-            System.out.printf("%7s", f.toString());
+        for(String colName: Member.getColNames()){
+            System.out.printf("%7s", colName);
         }
         System.out.println();
         for(Object o: member.toList()){

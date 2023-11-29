@@ -15,10 +15,11 @@ public abstract class Dao {
         Writer out = new FileWriter(baseUrl + "/" +table.name() + "." + extension);
         Table.Exporter exporter = new CSVExporter(out);
         table.export(exporter);
+        out.close();
         // TODO
     }
     public void loadTable(String tableName) throws IOException { // impoter 사용해서 파일 로드 -> table 생성
-        Reader in = new FileReader(baseUrl + "/"  + tableName + extension);
+        Reader in = new FileReader(baseUrl + "/"  + tableName + "." + extension);
         table = TableFactory.create(new CSVImporter(in));
         in.close();
         // TODO
@@ -33,7 +34,7 @@ public abstract class Dao {
     }
 
     public abstract List<Object> selectTableByUid(List<Integer> uuidList);
-    public abstract void insertTable(List<Object> domainList);
+    public abstract void insertTable(List<Object> domainList) throws IOException;
     public abstract void updateTable(Object updateInfo) throws IOException;
     public abstract Table returnTable();
 }

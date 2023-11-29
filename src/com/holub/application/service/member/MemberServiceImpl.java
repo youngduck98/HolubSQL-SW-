@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void addMember(Member member) {
+    public void addMember(Member member) throws IOException {
         System.out.println("try to add member");
         memberDao.insertTable(Arrays.asList(new Member[]{member}));
     }
@@ -69,8 +69,10 @@ public class MemberServiceImpl implements MemberService{
             throw new NullPointerException();
         //들어온 uuid list의 길이와 나온 Member list의 길이가 다르면 illegalargumentException
         //없는 uuid를 포함하였다는 의미이므로
-        if(uuids.size() != output.size())
-            throw new IllegalArgumentException();
+        if(uuids.size() != output.size()) {
+            System.out.println(uuids.size() + " " + output.size());
+            throw new IllegalArgumentException(uuids.get(0).toString());
+        }
         return makeMemberListFromObjectList(output);
     }
 

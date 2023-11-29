@@ -43,7 +43,7 @@ public class CheckOutDao extends Dao {
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
-            if(!uuidSet.contains(row.get(0)))
+            if(!uuidSet.contains(Integer.parseInt(row.get(0).toString())))
                 continue;
             newDataSet.add(new CheckOut(row));
         }
@@ -71,12 +71,14 @@ public class CheckOutDao extends Dao {
         return newDataSet;
     }
 
-    public void insertTable(List<Object> domainList) {
+    public void insertTable(List<Object> domainList) throws IOException {
         int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object checkOut: domainList){
             ((CheckOut)checkOut).setUuid(nextUid++);
             table.insert(((CheckOut)checkOut).toList());
         }
+        this.saveTable();
+        this.loadTable(table.name());
     }
 
     public void updateTable(Object updateInfo) throws IOException {

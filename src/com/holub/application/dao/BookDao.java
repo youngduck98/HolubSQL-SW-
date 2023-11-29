@@ -33,7 +33,7 @@ public class BookDao extends Dao{
         Set<Object> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
-            if(!uuidSet.contains(row.get(0)))
+            if(!uuidSet.contains(Integer.parseInt(row.get(0).toString())))
                 continue;
             newDataSet.add(new Book(row));
         }
@@ -41,7 +41,12 @@ public class BookDao extends Dao{
     }
 
     public List<Object> selectTableByCol(Object[] nameList, String colName){
-        return selectTableByCol(new ArrayList<>(Arrays.asList(nameList)), colName);
+        try {
+            return selectTableByCol(new ArrayList<>(Arrays.asList(nameList)), colName);
+        }
+        catch (IllegalArgumentException e){
+            return new ArrayList<>();
+        }
     }
 
     public List<Object> selectTableByCol(List<Object> nameList, String colName) {
@@ -65,12 +70,14 @@ public class BookDao extends Dao{
         return newDataSet;
     }
 
-    public void insertTable(List<Object> domainList) {
+    public void insertTable(List<Object> domainList) throws IOException {
         int nextUid = TableUtil.getHighIndex(table) + 1;
         for(Object book: domainList){
             ((Book)book).setUuid(nextUid++);
             table.insert(((Book)book).toList());
         }
+        this.saveTable();
+        this.loadTable(table.name());
     }
 
     public void updateTable(Object updateInfo) throws IOException {

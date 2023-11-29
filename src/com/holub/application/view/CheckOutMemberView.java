@@ -1,21 +1,21 @@
 package com.holub.application.view;
 
+import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.model.vtc.CheckOutMemberVTC;
 import com.holub.application.model.vtc.VTC;
 import com.holub.application.util.InputScanner;
+
+import java.util.List;
 
 public class CheckOutMemberView {
 
     private final InputScanner scanner = InputScanner.getInstance();
 
-    // 메뉴 출력
-    public void showMenu() {
-        System.out.println("(1)메인 화면으로 이동 (2)반납");
-    }
-
     // 책 리스트 출력
-    public void showMyCheckOutList() {
-        // TODO
+    public void showMyCheckOutList(List<CheckOut> checkOutList) {
+        for(CheckOut checkOut: checkOutList){
+
+        }
 
     }
 
@@ -42,8 +42,7 @@ public class CheckOutMemberView {
 
     public VTC execute() {
         while(true) {
-            showMenu();
-            showMyCheckOutList();
+            //showMyCheckOutList();
             String selectedMenu = getString();
             if (isSelectedMenuValid(selectedMenu))
                 // TODO myUuid 넣어서 리턴해 줘야함

@@ -27,9 +27,7 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public Integer login(LoginVTC vtc) {
-
-        if (vtc.getGrant() == Grant.None) {
-
+        if (vtc.getGrant() != Grant.None) {
             Object temp = memberDao.findByIdAndPassword(vtc.getId(), vtc.getPassword());
 
             if (temp != null) {

@@ -116,7 +116,7 @@ public class TableUtil {
         Cursor cursor = table.rows();
         Integer maxUUid = 0;
         while(cursor.advance()){
-            Integer a = (Integer) cursor.columns().next();
+            Integer a = (Integer)cursor.columns().next();
             if(maxUUid < a)
                 maxUUid = a;
         }

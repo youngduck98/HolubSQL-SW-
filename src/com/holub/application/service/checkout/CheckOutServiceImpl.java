@@ -38,7 +38,7 @@ public class CheckOutServiceImpl implements CheckOutService{
     }
 
     @Override
-    public void checkOutBook(Grant grant, CheckOut checkOutInfo) {
+    public void checkOutBook(Grant grant, CheckOut checkOutInfo) throws IOException {
         if (checkOutInfo.getUuid() == -1 && grant == Grant.Member) {
             checkOutDao.insertTable(Arrays.asList(new CheckOut[] {checkOutInfo}));
         }

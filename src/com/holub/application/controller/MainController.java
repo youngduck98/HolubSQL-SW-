@@ -59,7 +59,8 @@ public class MainController {
     }
 
     public void myInfo(){
-        List<Member> memberList = memberService.findMember(Arrays.asList(new Integer[]{loginToken.getUserUid()}));
+        List<Member> memberList = memberService.findMember(
+                Arrays.asList(new Integer[]{loginToken.getUserUid()}));
         if(memberList.isEmpty())
             throw new IllegalArgumentException("how you login?");
         MyInfoView.showMyInfo(memberList.get(0));
@@ -82,7 +83,7 @@ public class MainController {
     }
 
     public void checkOut(){
-
+        //checkOutMemberView
     }
 
     public void extendCheckout(){
@@ -99,6 +100,11 @@ public class MainController {
         }
     }
 
+    //반납
+    public void returnBook(){
+
+    }
+
     public void searchBook(){
         String name = mainView.getBookName();
         bookList = bookService.getBookByName(name);
@@ -113,13 +119,13 @@ public class MainController {
             bookService.sortBook(new String[]{colName}, new int[]{asc});
             bookList = bookService.getBookList();
         } catch (Exception e) {
-            System.out.println("failed to get sort data");
-            sortBook();
+            System.out.println("failed to get sort data" + e);
         }
     }
 
-    public void registerBook(){
+    public void registerBook() throws IOException {
         Book book = bookRegisterView.execute();
+        System.out.println(book.toList().toString());
         bookService.addBook(loginToken.getGrant(), book);
         bookList = bookService.getBookList();
     }
@@ -144,7 +150,7 @@ public class MainController {
         index = Math.min(index+ size, bookList.size());
     }
 
-    public void execute(){
+    public void execute() throws IOException {
         /*
         * System.out.println("(0)로그 아웃 (1)내 정보 (2)회원 정보/수정 (3)대출 정보/연장");
         System.out.println("(4)책 검색 (5)책 정렬 (6)책 등록 (7)책 수정");
@@ -152,6 +158,10 @@ public class MainController {
         * */
         bookList = bookService.getBookList();
         while(true) {
+            /**
+             * System.out.println("(0)로그 아웃 (1)내 정보 (3)대출 정보/반납 (4)책 검색 (5)책 정렬 (6)책 대출");
+             *         System.out.println("(Q)이전 페이지 (W)다음 페이지 ");
+             */
             mainView.showMenu();
             index = Math.max(index, 0);
             int caledSize = Math.min(index + size, bookList.size()) - index;
@@ -166,7 +176,10 @@ public class MainController {
                     fixMemberInfo();
                     break;
                 case "3":
-                    extendCheckout();
+                    if(loginToken.getGrant() == Grant.Manager)
+                        extendCheckout();
+                    if(loginToken.getGrant() == Grant.Member)
+                        returnBook();
                     break;
                 case "4":
                     searchBook();
@@ -183,7 +196,10 @@ public class MainController {
                     nextPage();
                     break;
                 case "6":
-                    registerBook();
+                    if(loginToken.getGrant() == Grant.Manager)
+                        registerBook();
+                    if(loginToken.getGrant() == Grant.Member)
+                        checkOut();
                     break;
                 case "7":
                     fixBookInfo();

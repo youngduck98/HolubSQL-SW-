@@ -50,7 +50,6 @@ public class LoginController {
             }
             catch (IllegalArgumentException e){
                 System.out.println("something error occured: " + e);
-
                 login();
             }
             return login();

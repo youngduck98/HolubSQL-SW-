@@ -37,14 +37,14 @@ public class Member {
     }
 
     public Member(List<Object> row) {
-        this.uuid = (Integer) row.get(0);
+        this.uuid = Integer.parseInt(row.get(0).toString());
         this.id = (String) row.get(1);
         this.password = (String) row.get(2);
         this.name = (String) row.get(3);
-        this.age = (Integer) row.get(4);
-        this.gender = (Gender) row.get(5);
+        this.age = Integer.parseInt(row.get(4).toString());
+        this.gender = Gender.valueOf(row.get(5).toString());
         this.number = (String) row.get(6);
-        this.grant = (Grant) row.get(7);
+        this.grant = Grant.valueOf(row.get(7).toString());
     }
 
     public List<Object> toList() {

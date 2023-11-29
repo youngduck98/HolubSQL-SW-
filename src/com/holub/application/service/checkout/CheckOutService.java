@@ -3,7 +3,6 @@ package com.holub.application.service.checkout;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.domain.member.Grant;
-import com.holub.application.model.Model;
 
 import java.io.IOException;
 import java.security.cert.Extension;
@@ -13,7 +12,7 @@ import java.util.List;
 public interface CheckOutService {
 
     // 책 빌리기
-    public void checkOutBook(Grant grant, CheckOut checkOutInfo);
+    public void checkOutBook(Grant grant, CheckOut checkOutInfo) throws IOException;
 
     // uuid를 사용해서 책 반납하기
     public void returnBook(Grant grant, Integer returnUuid);

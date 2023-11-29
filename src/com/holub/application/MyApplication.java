@@ -7,11 +7,13 @@ import com.holub.application.service.login.LoginService;
 import com.holub.application.service.login.LoginServiceImpl;
 import com.holub.application.view.*;
 
+import java.io.IOException;
+
 public class MyApplication {
     LoginView loginview = new LoginView();
     LoginController loginController = LoginController.getInstance(loginview);
     Integer UserUid = null;
-    public void execute(){
+    public void execute() throws IOException {
 
         // login 기능
         LoginView loginview = new LoginView();

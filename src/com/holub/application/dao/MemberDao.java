@@ -62,23 +62,26 @@ public class MemberDao extends Dao{
     @Override
     public List<Object> selectTableByUid(List<Integer> uuidList) {
         List<List<Object>> map = TableUtil.makeTableToList(table);
-        Set<Object> uuidSet = new HashSet<>(uuidList);
+        Set<Integer> uuidSet = new HashSet<>(uuidList);
         List<Object> newDataSet = new ArrayList<>();
         for(List<Object> row: map){
-            if(!uuidSet.contains(row.get(0)))
+            if(!uuidSet.contains(Integer.parseInt(row.get(0).toString())))
                 continue;
             newDataSet.add(new Member(row));
         }
         return newDataSet;
     }
 
-    public void insertTable(List<Object> domainList) {
+    public void insertTable(List<Object> domainList) throws IOException {
+        System.out.println(TableUtil.getHighIndex(table));
         int nextUid = TableUtil.getHighIndex(table) + 1;
         System.out.println("calculated uid for member");
         for(Object member: domainList){
             ((Member)member).setUuid(nextUid);
             table.insert(((Member)member).toList());
         }
+        this.saveTable();
+        this.loadTable(table.name());
     }
 
     public void updateTable(Object updateInfo) throws IOException {
@@ -101,8 +104,10 @@ public class MemberDao extends Dao{
                         tables[0].column("password").equals(password);
             }
         };
-        List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
-        return new Member(row);
+        List<List<Object>> rowList = TableUtil.makeTableToList(table.select(selector));
+        if(rowList.isEmpty())
+            return null;
+        return new Member(rowList.get(0));
     }
 
     public Table returnTable() {

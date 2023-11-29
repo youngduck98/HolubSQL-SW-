@@ -57,7 +57,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void addBook(Grant grant, Book bookInfo) {
+    public void addBook(Grant grant, Book bookInfo) throws IOException {
         if (bookInfo.getUuid() == -1 && grant == Grant.Manager){
             bookDao.insertTable(Arrays.asList(new Book[] {bookInfo}));
         }

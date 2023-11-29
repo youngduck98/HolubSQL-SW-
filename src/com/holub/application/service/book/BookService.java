@@ -15,7 +15,7 @@ public interface BookService {
     public List<Book> getBookByName(String bookName);
 
     // bookInfo를 받아서 book 추가
-    public void addBook(Grant grant, Book bookInfo);
+    public void addBook(Grant grant, Book bookInfo) throws IOException;
     
     // uuid를 입력받아서 book 삭제 -> book의 CheckOutState를 삭제로 변경
     public void deleteBook(Grant grant, Book book) throws IOException ;

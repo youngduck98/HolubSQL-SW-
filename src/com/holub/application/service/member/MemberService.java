@@ -3,12 +3,13 @@ package com.holub.application.service.member;
 import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface MemberService {
 
     // member 추가 -> 회원가입
-    public void addMember(Member member);
+    public void addMember(Member member) throws IOException;
     
     // uuid로 Member 한명 검색 -> 한명 찾기 & 내 정보 찾기
     public Member findOneMember(Integer uuid);
