@@ -7,7 +7,7 @@ import com.holub.application.util.InputScanner;
 
 import java.util.List;
 
-public class BookBrowserView extends View {
+public class BookBrowserView implements View {
 
     private final InputScanner scanner = InputScanner.getInstance();
     private final CTV ctv;
@@ -28,10 +28,5 @@ public class BookBrowserView extends View {
         if(selectedMenu.equals("1") || selectedMenu.equals("2"))
             return Integer.parseInt(selectedMenu);
         return getUserSelect();
-    }
-
-    @Override
-    public List<String> execute(Model model) {
-        return null;
     }
 }

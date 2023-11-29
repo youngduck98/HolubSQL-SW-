@@ -1,34 +1,47 @@
 package com.holub.application.view;
 
+
 import com.holub.application.model.Model;
+import com.holub.application.model.ctv.CTV;
+import com.holub.application.model.vtc.MainNoneVTC;
+import com.holub.application.model.vtc.VTC;
+import com.holub.application.util.InputScanner;
 
 import java.util.List;
 
-public class MainNoneView extends View {
+public class MainNoneView implements View {
+
+    private final InputScanner scanner = InputScanner.getInstance();
+    private final CTV ctv;
+
+    public MainNoneView(CTV ctv) {
+        this.ctv = ctv;
+    }
 
     // 메뉴 출력
     public void showMenu() {
         System.out.println("(1)회원가입 (2)로그인 (3)책 검색");
-        System.out.println("([)이전 페이지  (])다음 페이지");
+        System.out.println("(Q)이전 페이지 (W)다음 페이지");
     }
 
     // 책 리스트 출력
-    public void showBookList(Model model) {
+    public void showBookList() {
         // TODO
-        // model에서 Book 정보 찾아서 출력, 단 View는 Book을 몰라야함 -> 즉, Model에 넣을 때 Book객체가 아니라 List<String>등으로 바꿔서 넣을것
-    }
-    
-    // 입력 받기
-    public void getMenu() {
-        //storage.getInput();
     }
 
-    @Override
-    public List<String> execute(Model model) {
-        showMenu();
-        showBookList(model);
-        getMenu();
-        return null;
+    public String getString() {
+        System.out.print(">> ");
+        return scanner.inputString();
     }
 
+    public boolean isSelectedMenuValid(String selectedMenu) {
+        switch(selectedMenu){
+            case "1": case "2": case "3":
+            case "Q": case "W": case "q":
+            case "w":
+                return true;
+            default:
+                return false;
+        }
+    }
 }

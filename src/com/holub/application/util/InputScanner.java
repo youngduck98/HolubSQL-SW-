@@ -19,4 +19,8 @@ public class InputScanner {
         return sc.next();
     }
 
+    public Integer inputInteger() {
+        return sc.nextInt();
+    }
+
 }
