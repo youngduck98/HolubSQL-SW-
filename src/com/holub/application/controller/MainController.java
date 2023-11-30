@@ -21,14 +21,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainController {
+
+    Config config = Config.getInstance();
+
     private static MainController mainController;
     private int index;
     private int size;
 
     private static LoginToken loginToken;
-    public BookService bookService = BookServiceImpl.getInstance();
-    public MemberService memberService = MemberServiceImpl.getInstance();
-    public CheckOutService checkOutService = CheckOutServiceImpl.getInstance();
+    public BookService bookService = config.getBookService();
+    public MemberService memberService = config.getMemberService();
+    public CheckOutService checkOutService = config.getCheckOutService();
     private MainView mainView;
     private BookRegisterView bookRegisterView = new BookRegisterView();
 
