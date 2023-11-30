@@ -89,7 +89,7 @@ public class CheckOutDao extends Dao {
         };
         List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
         table.delete(selector);
-        table.insert(row);
+        table.insert(((CheckOut)updateInfo).toList());
         saveTable();
         loadTable(table.name());
     }
