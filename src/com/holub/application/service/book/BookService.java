@@ -36,4 +36,5 @@ public interface BookService {
 
     public String getMaxValue(String colName);
 
+    public String getMinValue(String colName);
 }

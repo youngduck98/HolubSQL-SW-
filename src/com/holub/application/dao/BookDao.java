@@ -4,6 +4,7 @@ import com.holub.application.domain.book.Book;
 import com.holub.database.*;
 import com.holub.database.AggregationFunction.AggregationFunction;
 import com.holub.database.AggregationFunction.Max;
+import com.holub.database.AggregationFunction.Min;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -136,6 +137,18 @@ public class BookDao extends Dao{
         List<AggregationFunction> maxList = new ArrayList<>();
         maxList.add(new Max());
         ret = ret.applyAggregation(maxList);
+        Cursor cursor = ret.rows();
+        cursor.advance();
+        return cursor.columns().next().toString();
+        //return ret.rows().columns().next().toString();
+    }
+
+    public String getMinValue(String colName){
+        Selector selector = new Selector.Adapter() {};
+        Table ret = table.select(selector, new String[]{colName});
+        List<AggregationFunction> minList = new ArrayList<>();
+        minList.add(new Min());
+        ret = ret.applyAggregation(minList);
         Cursor cursor = ret.rows();
         cursor.advance();
         return cursor.columns().next().toString();

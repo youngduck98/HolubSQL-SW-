@@ -193,20 +193,42 @@ public class MainController {
 
 
     public void max() {
-
+        try {
             String colName = mainView.getColName();
             String max = bookService.getMaxValue(colName);
             mainView.print("max_value: " + max);
             bookList = bookService.getBookList();
+        } catch (Exception e) {
+            System.out.println("failed to get max value of data" + e);
+        }
+    }
+
+    public void min() {
+        try {
+            String colName = mainView.getColName();
+            String min = bookService.getMinValue(colName);
+            mainView.print("min_value: " + min);
+            bookList = bookService.getBookList();
+        } catch (Exception e) {
+            System.out.println("failed to get min value of data" + e);
+        }
+    }
+
+    public void genre(){
+        try {
+            System.out.println(bookService.getBookGenre());
+        }
+        catch (Exception e){
+            System.out.println("failed to extract library's Genre");
+        }
     }
 
     public void analyze(){
-        String str = mainView.getString("1: max, 2: min, 3: sum, 4: genre");
+        String str = mainView.getString("1: max, 2: min, 3: genre");
         switch (str){
             case "1":max();break;
-            case "2":break;
-            case "3":break;
-            case "4":break;
+            case "2":min();break;
+            case "3":genre();
         }
     }
 
