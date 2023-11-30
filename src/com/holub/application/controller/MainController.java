@@ -168,13 +168,14 @@ public class MainController {
         Integer uid = bookRegisterView.getInteger("input bookUid");
         List<Integer> input = new ArrayList<>();
         input.add(uid);
-        bookList = bookService.getBookListByUid(input);
-        if(bookList.isEmpty()){
+        List<Book> bookL = bookService.getBookListByUid(input);
+        if(bookL.isEmpty()){
             System.out.println("no book like that");
             fixMemberInfo();
         }
+
         try {
-            bookService.modifyBookInfo(loginToken.getGrant(), bookList.get(0));
+            bookService.modifyBookInfo(loginToken.getGrant(), bookL.get(0));
         }
         catch (Exception e){
             System.out.println("error at modify Book info " + e);
