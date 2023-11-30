@@ -28,6 +28,7 @@ public class MemberDao extends Dao{
         if(uniqueDao == null){
             uniqueDao = new MemberDao(url, tableName);
         }
+        // 본인 취침
         return uniqueDao;
     }
 

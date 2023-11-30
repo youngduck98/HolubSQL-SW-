@@ -54,10 +54,10 @@ public class Config {
         );
     }
 
-//    public void execute() throws Exception{
-//        getBookService();
-//        getCheckOutService();
-//        getLoginService();
-//        getMemberService();
-//    }
+    public void execute() throws Exception{
+        getBookService();
+        getCheckOutService();
+        getLoginService();
+        getMemberService();
+    }
 }
