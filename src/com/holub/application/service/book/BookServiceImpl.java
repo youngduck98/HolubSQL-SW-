@@ -98,6 +98,11 @@ public class BookServiceImpl implements BookService {
         return bookDao.getBookList();
     }
 
+    @Override
+    public String getMaxValue(String colName) {
+        return bookDao.getMaxValue(colName);
+    }
+
     private Grant getMyGrant(Integer myUuid) {
         List<Object> memberList = memberDao.selectTableByUid(Arrays.asList(myUuid));
         if (!memberList.isEmpty()){

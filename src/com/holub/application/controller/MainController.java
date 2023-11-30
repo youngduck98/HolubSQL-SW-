@@ -191,28 +191,24 @@ public class MainController {
         }
     }
 
-    /*
-    public void max(){
-        try {
+
+    public void max() {
+
             String colName = mainView.getColName();
-            bookService.getMaxValue(colName);
+            String max = bookService.getMaxValue(colName);
+            mainView.print("max_value: " + max);
             bookList = bookService.getBookList();
-        } catch (Exception e) {
-            System.out.println("failed to get max value of data" + e);
-        }
     }
-     */
-/*
+
     public void analyze(){
         String str = mainView.getString("1: max, 2: min, 3: sum, 4: genre");
         switch (str){
-            case "1":break;
+            case "1":max();break;
             case "2":break;
             case "3":break;
             case "4":break;
         }
     }
-    */
 
     public void beforePage(){
         index = Math.max(index-size, 0);
@@ -275,6 +271,9 @@ public class MainController {
                     break;
                 case "7":
                     fixBookInfo();
+                    break;
+                case "8":
+                    analyze();
                     break;
                 case "0":
                     logout();

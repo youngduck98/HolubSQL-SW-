@@ -34,6 +34,6 @@ public interface BookService {
 
     public List<Book> getBookList();
 
-    //public String getMaxValue(String colName);
+    public String getMaxValue(String colName);
 
 }

@@ -129,13 +129,18 @@ public class BookDao extends Dao{
         }
         return ret;
     }
-    /*
+
     public String getMaxValue(String colName){
         Selector selector = new Selector.Adapter() {};
         Table ret = table.select(selector, new String[]{colName});
-        table.applyAggregation(Arrays.asList(new AggregationFunction[]{new Max()})).rows();
+        List<AggregationFunction> maxList = new ArrayList<>();
+        maxList.add(new Max());
+        ret = ret.applyAggregation(maxList);
+        Cursor cursor = ret.rows();
+        cursor.advance();
+        return cursor.columns().next().toString();
+        //return ret.rows().columns().next().toString();
     }
-    */
 
     public Table returnTable() {
         return table;

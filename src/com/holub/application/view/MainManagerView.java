@@ -16,7 +16,7 @@ public class MainManagerView extends MainView{
     // 메뉴 출력
     public void showMenu() {
         System.out.println("(0)로그 아웃 (1)내 정보 (2)회원 정보/수정 (3)대출 정보/연장");
-        System.out.println("(4)책 검색 (5)책 정렬 (6)책 등록 (7)책 수정");
+        System.out.println("(4)책 검색 (5)책 정렬 (6)책 등록 (7)책 수정 (8)analyze");
         System.out.println("(Q)이전 페이지 (W)다음 페이지 ");
     }
 
@@ -74,6 +74,7 @@ public class MainManagerView extends MainView{
             case "4": case "5": case "Q":
             case "W": case "q": case "w":
             case "6": case "7": case "0":
+            case "8":
                 return true;
             default:
                 return false;
