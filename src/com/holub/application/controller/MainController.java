@@ -76,6 +76,7 @@ public class MainController {
             uid = loginToken.getUserUid();
         }
         if(loginToken.getGrant() == Grant.Manager){
+            mainView.print("userUid: " + memberService.findAllUid().toString());
             uid = bookRegisterView.getInteger("input Useruuid");
             List<Member> memberList = memberService.findMember(Arrays.asList(new Integer[]{uid}));
             if(memberList.isEmpty()){

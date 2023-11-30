@@ -41,7 +41,7 @@ public class BookRegisterView{
         } else {
             checkOutState = CheckOutState.Unavailable;
         }
-        String genre = getString("TEMP");
+        String genre = getString("genre");
         System.out.println("지역을 선택해 주세요 (1)서울 (2)안성");
         temp = getString("location");
         Location location;
