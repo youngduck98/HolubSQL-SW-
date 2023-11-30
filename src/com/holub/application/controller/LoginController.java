@@ -50,9 +50,8 @@ public class LoginController {
             }
             catch (IllegalArgumentException e){
                 System.out.println("something error occured: " + e);
-                login();
+                return login();
             }
-            return login();
         }
         throw new IllegalArgumentException("no mode like that");
     }
