@@ -171,10 +171,13 @@ public class MainController {
         bookList = bookService.getBookListByUid(input);
         if(bookList.isEmpty()){
             System.out.println("no book like that");
-            fixMemberInfo();
+            fixBookInfo();
         }
         try {
-            bookService.modifyBookInfo(loginToken.getGrant(), bookList.get(0));
+            mainView.showBookList(bookList.subList(0, 1));
+            BookUpdateView bookUpdateView = new BookUpdateView(bookList.get(0));
+            Book bookInfo = bookUpdateView.execute();
+            bookService.modifyBookInfo(loginToken.getGrant(), bookInfo);
         }
         catch (Exception e){
             System.out.println("error at modify Book info " + e);
