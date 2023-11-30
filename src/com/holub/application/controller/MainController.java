@@ -181,6 +181,29 @@ public class MainController {
         }
     }
 
+    /*
+    public void max(){
+        try {
+            String colName = mainView.getColName();
+            bookService.getMaxValue(colName);
+            bookList = bookService.getBookList();
+        } catch (Exception e) {
+            System.out.println("failed to get max value of data" + e);
+        }
+    }
+     */
+/*
+    public void analyze(){
+        String str = mainView.getString("1: max, 2: min, 3: sum, 4: genre");
+        switch (str){
+            case "1":break;
+            case "2":break;
+            case "3":break;
+            case "4":break;
+        }
+    }
+    */
+
     public void beforePage(){
         index = Math.max(index-size, 0);
     }
@@ -202,7 +225,7 @@ public class MainController {
              *         System.out.println("(Q)이전 페이지 (W)다음 페이지 ");
              */
             mainView.showMenu();
-            index = Math.max(index, 0);
+            index = Math.max(Math.min(index, bookList.size() - size), 0);
             int caledSize = Math.min(index + size, bookList.size()) - index;
             caledSize = Math.max(caledSize, 0);
             mainView.showBookList(bookList.subList(index, index + caledSize));
