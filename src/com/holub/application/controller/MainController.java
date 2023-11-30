@@ -83,8 +83,10 @@ public class MainController {
                 System.out.println("no member has " + uid);
                 return;
             }
+
             Member updateInfoMember = ((MainManagerView)mainView).viewOfUpdateMember(memberList.get(0));
-            System.out.println(updateInfoMember.toList());
+            mainView.print(updateInfoMember.toList().toString());
+
             memberService.fixMemberInfo(updateInfoMember);
         }
     }
