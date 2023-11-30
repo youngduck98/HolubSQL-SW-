@@ -31,16 +31,16 @@ public class Book {
     }
 
     public Book(List<Object> row){
-        this.uuid = (Integer) row.get(0);
+        this.uuid = Integer.parseInt(row.get(0).toString());
         this.title = (String) row.get(1);
         this.author = (String) row.get(2);
-        this.publicationDate = (LocalDate) row.get(3);
-        this.registrationDate = (LocalDate) row.get(4);
-        this.quantity = (Integer) row.get(5);
-        this.location = (Location) row.get(6);
-        this.checkOutState = (CheckOutState) row.get(7);
+        this.publicationDate = LocalDate.parse(row.get(3).toString());
+        this.registrationDate = LocalDate.parse(row.get(4).toString());
+        this.quantity = Integer.parseInt(row.get(5).toString());
+        this.location = Location.valueOf(row.get(6).toString());
+        this.checkOutState = CheckOutState.valueOf(row.get(7).toString());
         this.genre = (String) row.get(8);
-        this.numOfCheckout = (Integer) row.get(9);
+        this.numOfCheckout = Integer.parseInt(row.get(9).toString());
     }
 
     public Book(String title, String author, LocalDate publicationDate, LocalDate registrationDate, Integer quantity, Location location, CheckOutState checkOutState, String genre, Integer numOfCheckout) {
@@ -58,13 +58,13 @@ public class Book {
 
     public List<Object> toList() {
         return Arrays.asList(
-            uuid, title, author, publicationDate, registrationDate, quantity, location, checkOutState, genre
+            uuid, title, author, publicationDate, registrationDate, quantity, location, checkOutState, genre, numOfCheckout
         );
     }
 
     public static String[] getColumnames(){
         return new String[]{"uuid", "title", "author", "publicationDate", "registrationDate"
-                , "quantity", "location", "checkOutState", "genre"};
+                , "quantity", "location", "checkOutState", "genre", "numOfCheckout"};
     }
 
     public String getGenre() {

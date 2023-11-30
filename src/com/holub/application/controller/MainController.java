@@ -78,19 +78,38 @@ public class MainController {
                 System.out.println("no member has " + uid);
                 return;
             }
-            //TODO: fixmemberInfo
+            Member updateInfoMember = ((MainManagerView)mainView).viewOfUpdateMember(memberList.get(0));
+            System.out.println(updateInfoMember.toList());
+            memberService.fixMemberInfo(updateInfoMember);
         }
     }
 
     public void checkOut(){
-        //checkOutMemberView
+        //책 선택 -> 대출
+        Integer bookUid = checkOutMemberView.getInteger("bookUid");
+        List<Book> book = bookService.
+                getBookListByUid(Arrays.asList(new Integer[]{bookUid}));
+        if(book.isEmpty()){
+            checkOutMemberView.println("no bookUid like that" + bookUid);
+            return;
+        }
+        try {
+            CheckOut checkOut = checkOutMemberView.checkOutProcess(bookUid, loginToken);
+            checkOutService.checkOutBook(loginToken.getGrant(), checkOut);
+        }
+        catch (Exception e){
+            System.out.println("error at checkoutBook" + e);
+        }
     }
 
-    public void extendCheckout(){
+    public void extendCheckout() throws IOException {
         if(loginToken.getGrant() != Grant.Manager){
             System.out.println("권한이 존재하지 않습니다");
             return;
         }
+        Integer uid = mainView.getIntegerInList(memberService.findAllUid());
+        List<CheckOut> list = checkOutService.getCheckOutList(loginToken.getGrant(), Arrays.asList(new Integer[]{uid}));
+        checkOutManagerView.showCheckOutList(list);
         CheckOutManagerVTC cmv = checkOutManagerView.executeSelectedMenu();
         try {
             checkOutService.extensionDueDate(loginToken.getGrant(), cmv.getUpdateDueDate(), cmv.getUpdateCheckOutUuid());
@@ -102,7 +121,21 @@ public class MainController {
 
     //반납
     public void returnBook(){
-
+        //본인 체크아웃 확인
+        List<CheckOut> list = checkOutService.getMyCheckOutInfo(loginToken.getUserUid());
+        System.out.println(list.size());
+        checkOutMemberView.showMyCheckOutList(list);
+        //체크아웃 할 uid 받기
+        List<Integer> uids = new ArrayList<>();
+        for(CheckOut co : list){
+            uids.add(co.getUuid());
+        }
+        Integer uid = checkOutMemberView.getIntegerInList(uids);
+        if(uid == null) {
+            System.out.println("no uid like that");
+            return;
+        }
+        checkOutService.returnBook(loginToken.getGrant(), uid);
     }
 
     public void searchBook(){
@@ -110,6 +143,7 @@ public class MainController {
         bookList = bookService.getBookByName(name);
         if(bookList.isEmpty())
             mainView.print("no book like that");
+        mainView.print(bookList.get(0).toList().toString());
     }
 
     public void sortBook(){
@@ -125,7 +159,7 @@ public class MainController {
 
     public void registerBook() throws IOException {
         Book book = bookRegisterView.execute();
-        System.out.println(book.toList().toString());
+        System.out.println(book.toList());
         bookService.addBook(loginToken.getGrant(), book);
         bookList = bookService.getBookList();
     }
@@ -139,7 +173,12 @@ public class MainController {
             System.out.println("no book like that");
             fixMemberInfo();
         }
-        //TODO: fixBookInfo
+        try {
+            bookService.modifyBookInfo(loginToken.getGrant(), bookList.get(0));
+        }
+        catch (Exception e){
+            System.out.println("error at modify Book info " + e);
+        }
     }
 
     public void beforePage(){

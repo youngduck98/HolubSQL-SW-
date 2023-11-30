@@ -29,11 +29,11 @@ public class CheckOut {
     }
 
     public CheckOut(List<Object> row) {
-        this.uuid = (Integer) row.get(0);
-        this.memberUuid = (Integer) row.get(1);
-        this.bookUuid = (Integer) row.get(2);
-        this.rentalDate = (LocalDate) row.get(3);
-        this.dueDate = (LocalDate) row.get(4);
+        this.uuid = Integer.parseInt(row.get(0).toString());
+        this.memberUuid = Integer.parseInt(row.get(1).toString());
+        this.bookUuid = Integer.parseInt(row.get(2).toString());
+        this.rentalDate = LocalDate.parse(row.get(3).toString());
+        this.dueDate = LocalDate.parse( row.get(4).toString());
     }
 
     public List<Object> toList() {

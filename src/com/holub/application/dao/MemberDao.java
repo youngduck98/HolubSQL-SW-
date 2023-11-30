@@ -87,12 +87,12 @@ public class MemberDao extends Dao{
     public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
-                return tables[0].column("uuid").equals(((Member)updateInfo).getUuid());
+                //System.out.println(tables[0].columnName(0));
+                return tables[0].column("uuid").equals(((Member)updateInfo).getUuid().toString());
             }
         };
-        List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
         table.delete(selector);
-        table.insert(row);
+        table.insert(((Member)updateInfo).toList());
         saveTable();
         loadTable(table.name());
     }
@@ -108,6 +108,15 @@ public class MemberDao extends Dao{
         if(rowList.isEmpty())
             return null;
         return new Member(rowList.get(0));
+    }
+
+    public List<Member> findAll(){
+        List<List<Object>> rowList = TableUtil.makeTableToList(table);
+        List<Member> ret = new ArrayList<>();
+        for(List<Object> row: rowList){
+            ret.add(new Member(row));
+        }
+        return ret;
     }
 
     public Table returnTable() {

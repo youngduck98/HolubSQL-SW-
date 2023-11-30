@@ -50,7 +50,7 @@ public class BookServiceImpl implements BookService {
     public List<Book> getBookByName(String bookName) {
         List<Book> list = new ArrayList<>();
 
-        for(Object o: bookDao.selectTableByCol(new String[]{bookName}, "name")){
+        for(Object o: bookDao.selectTableByCol(new String[]{bookName}, "title")){
             list.add((Book) o);
         }
         return list;

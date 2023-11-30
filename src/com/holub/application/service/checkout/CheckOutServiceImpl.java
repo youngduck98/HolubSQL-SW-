@@ -92,16 +92,14 @@ public class CheckOutServiceImpl implements CheckOutService{
     @Override
     public List<CheckOut> getMyCheckOutInfo(Integer myUuid) {
         List<Object> checkOutList = checkOutDao.findCheckoutListFromUser(myUuid);
-
-        if (!checkOutList.isEmpty())
-            return checkOutList.stream()
-                    .map(c -> (CheckOut) c)
-                    .collect(Collectors.toList());
-        else
-            return null;
+        List<CheckOut> ret = new ArrayList<>();
+        for(Object o1: checkOutList){
+            ret.add((CheckOut) o1);
+        }
+        return ret;
     }
 
-    private Grant getMyGrant(Integer myUuid ) {
+    private Grant getMyGrant(Integer myUuid) {
         List<Object> memberList = memberDao.selectTableByUid(
                 Arrays.asList(new Integer[] {myUuid}));
         if (!memberList.isEmpty()){

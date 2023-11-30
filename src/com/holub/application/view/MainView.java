@@ -22,16 +22,15 @@ public abstract class MainView {
 
     // 책 리스트 출력
     public void printBookMenu(Book book){
-        Field[] fields = book.getClass().getDeclaredFields();
-        for(Field field: fields){
-            System.out.printf("%7s", field);
+        for(String str: Book.getColumnames()){
+            System.out.printf("%17s", str);
         }
         System.out.println();
     }
 
     public void printBook(Book book){
         for(Object field: book.toList()){
-            System.out.printf("%7s", field.toString());
+            System.out.printf("%17s", field.toString());
         }
         System.out.println();
     }
@@ -59,6 +58,11 @@ public abstract class MainView {
         return scanner.inputString();
     }
 
+    public Integer getInteger(String str) {
+        System.out.print(str + ">> ");
+        return scanner.inputInteger();
+    }
+
     public void print(String str){
         System.out.println(str);
     }
@@ -68,6 +72,13 @@ public abstract class MainView {
         if(!list.contains(str))
             return getStringInList(list);
         return str;
+    }
+
+    public Integer getIntegerInList(List<Integer> list){
+        Integer n = getInteger("uid in list");
+        if(!list.contains(n))
+            return getIntegerInList(list);
+        return n;
     }
 
     public String getColName() {

@@ -10,11 +10,11 @@ public class MyInfoView {
     public static void showMyInfo(Member member) {
         // CTV에서 내 정보를 찾아서 출력
         for(String colName: Member.getColNames()){
-            System.out.printf("%7s", colName);
+            System.out.printf("%10s", colName);
         }
         System.out.println();
         for(Object o: member.toList()){
-            System.out.printf("%7s", o.toString());
+            System.out.printf("%10s", o.toString());
         }
         System.out.println();
     }

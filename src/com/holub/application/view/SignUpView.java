@@ -1,6 +1,7 @@
 package com.holub.application.view;
 
 import com.holub.application.domain.member.Gender;
+import com.holub.application.domain.member.Grant;
 import com.holub.application.domain.member.Member;
 import com.holub.application.util.InputScanner;
 
@@ -18,8 +19,20 @@ public class SignUpView {
         return scanner.inputInteger();
     }
 
+    public Grant getGrant(){
+        System.out.println("계급을 선택해 주세요 (1) Member, (2) Manager");
+        String n = getString();
+        if(n.equals("1"))
+            return Grant.Member;
+        if(n.equals("2"))
+            return Grant.Manager;
+        System.out.println("1,2중 하나를 입력 해 주세요");
+        return getGrant();
+    }
+
     public Member execute() {
         // TODO -> validation 추가
+        Grant grant = getGrant();
         System.out.println("id를 입력해 주세요");
         String id = getString();
         System.out.println("password를 입력해 주세요");
@@ -41,7 +54,7 @@ public class SignUpView {
         System.out.println("number를 입력해 주세요");
         String number = getString();
 
-        return new Member(id, password, name, age, gender, number);
+        return new Member(id, password, name, age, gender, number, grant);
     }
 
 }

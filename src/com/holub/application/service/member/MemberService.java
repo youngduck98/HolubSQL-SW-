@@ -22,4 +22,5 @@ public interface MemberService {
     // uuid와 수정된 memberInfo를 받아서 member 정보 수정
     public void fixMemberInfo(Member member);
 
+    public List<Integer> findAllUid();
 }

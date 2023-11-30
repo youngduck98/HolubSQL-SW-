@@ -42,9 +42,10 @@ public class BookDao extends Dao{
 
     public List<Object> selectTableByCol(Object[] nameList, String colName){
         try {
-            return selectTableByCol(new ArrayList<>(Arrays.asList(nameList)), colName);
+            return selectTableByCol(Arrays.asList(nameList), colName);
         }
         catch (IllegalArgumentException e){
+            System.out.println("something wrong" + e);
             return new ArrayList<>();
         }
     }
@@ -83,7 +84,7 @@ public class BookDao extends Dao{
     public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
-                return tables[0].column("uuid").equals(((Book)updateInfo).getUuid());
+                return tables[0].column("uuid").equals(((Book)updateInfo).getUuid().toString());
             }
         };
         List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);

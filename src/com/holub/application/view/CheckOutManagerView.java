@@ -1,10 +1,12 @@
 package com.holub.application.view;
 
+import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.model.vtc.CheckOutManagerVTC;
 import com.holub.application.model.vtc.VTC;
 import com.holub.application.util.InputScanner;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CheckOutManagerView{
 
@@ -17,9 +19,10 @@ public class CheckOutManagerView{
     }
 
     // 책 리스트 출력
-    public void showCheckOutList() {
-        // TODO
-
+    public void showCheckOutList(List<CheckOut> list) {
+        for(CheckOut checkOut: list){
+            System.out.println(checkOut.toList());
+        }
     }
 
     // String 입력 받기

@@ -84,7 +84,7 @@ public class CheckOutDao extends Dao {
     public void updateTable(Object updateInfo) throws IOException {
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
-                return tables[0].column("uuid").equals(((CheckOut)updateInfo).getUuid());
+                return tables[0].column("uuid").equals(((CheckOut)updateInfo).getUuid().toString());
             }
         };
         List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
@@ -97,7 +97,7 @@ public class CheckOutDao extends Dao {
     public List<Object> findCheckoutListFromUser(Integer userUid){
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
-                return tables[0].column("memberUuid").equals(userUid);
+                return tables[0].column("memberUuid").equals(userUid.toString());
             }
         };
         List<List<Object>> map = TableUtil.makeTableToList(table.select(selector));
@@ -111,7 +111,7 @@ public class CheckOutDao extends Dao {
     public void deleteRow(Integer checkoutUUid){
         Selector selector = new Selector.Adapter() {
             public boolean approve(Cursor[] tables) {
-                return tables[0].column("uuid").equals(checkoutUUid);
+                return tables[0].column("uuid").equals(checkoutUUid.toString());
             }
         };
 

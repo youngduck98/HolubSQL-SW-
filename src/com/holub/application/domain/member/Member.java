@@ -36,6 +36,17 @@ public class Member {
         this.grant = Grant.Member;
     }
 
+    public Member(String id, String password, String name, Integer age, Gender gender, String number, Grant grant) {
+        this.uuid = -1;
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.number = number;
+        this.grant = grant;
+    }
+
     public Member(List<Object> row) {
         this.uuid = Integer.parseInt(row.get(0).toString());
         this.id = (String) row.get(1);

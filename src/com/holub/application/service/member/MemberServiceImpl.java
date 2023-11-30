@@ -83,6 +83,15 @@ public class MemberServiceImpl implements MemberService{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // TODO
+    }
+
+    @Override
+    public List<Integer> findAllUid() {
+        List<Integer> uids = new ArrayList<>();
+        List<Member> memberList = memberDao.findAll();
+        for(Member member: memberList){
+            uids.add(member.getUuid());
+        }
+        return uids;
     }
 }
