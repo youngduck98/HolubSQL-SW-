@@ -1,5 +1,6 @@
 package com.holub.application;
 
+import com.holub.application.controller.LoginController;
 import com.holub.application.dao.BookDao;
 import com.holub.application.dao.CheckOutDao;
 import com.holub.application.dao.MemberDao;
@@ -12,11 +13,23 @@ import com.holub.application.service.login.LoginService;
 import com.holub.application.service.login.LoginServiceImpl;
 import com.holub.application.service.member.MemberService;
 import com.holub.application.service.member.MemberServiceImpl;
+import com.holub.application.view.LoginView;
 
 import java.io.IOException;
 
 public class Config {
-    static String baseUrl = "C:/dp2023";
+
+    private static final Config instance = new Config();
+    private final String baseUrl;
+
+    private Config() {
+        this.baseUrl = "C:/dp2023";
+    }
+
+    public static Config getInstance() {
+        return instance;
+    }
+
     public BookService getBookService() throws IOException {
         return BookServiceImpl.getInstance(
                 BookDao.getInstance(baseUrl, "Book"),

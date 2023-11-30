@@ -26,7 +26,7 @@ public class MainManagerView extends MainView{
         return scanner.inputString();
     }
     public Integer getInteger() {
-        System.out.println(">> ");
+        System.out.print(">> ");
         return scanner.inputInteger();
     }
 

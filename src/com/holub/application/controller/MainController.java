@@ -1,5 +1,6 @@
 package com.holub.application.controller;
 
+import com.holub.application.Config;
 import com.holub.application.domain.book.Book;
 import com.holub.application.domain.checkout.CheckOut;
 import com.holub.application.domain.member.Grant;
@@ -21,14 +22,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainController {
+
+    Config config = Config.getInstance();
+
     private static MainController mainController;
     private int index;
     private int size;
 
     private static LoginToken loginToken;
-    public BookService bookService = BookServiceImpl.getInstance();
-    public MemberService memberService = MemberServiceImpl.getInstance();
-    public CheckOutService checkOutService = CheckOutServiceImpl.getInstance();
+    public BookService bookService = config.getBookService();
+    public MemberService memberService = config.getMemberService();
+    public CheckOutService checkOutService = config.getCheckOutService();
     private MainView mainView;
     private BookRegisterView bookRegisterView = new BookRegisterView();
 
@@ -36,12 +40,12 @@ public class MainController {
     private CheckOutMemberView checkOutMemberView = new CheckOutMemberView();
 
     List<Book> bookList;
-    private MainController(MainView MainView, int index, int size){
+    private MainController(MainView MainView, int index, int size) throws IOException {
         this.mainView = MainView;
         this.index = index;
         this.size = size;
     }
-    public static MainController getInstance(LoginToken token, MainView MainView, int index, int size){
+    public static MainController getInstance(LoginToken token, MainView MainView, int index, int size) throws IOException {
         if(mainController == null)
             mainController = new MainController(MainView, index, size);
         loginToken = token;
@@ -168,14 +172,19 @@ public class MainController {
         Integer uid = bookRegisterView.getInteger("input bookUid");
         List<Integer> input = new ArrayList<>();
         input.add(uid);
-        List<Book> bookL = bookService.getBookListByUid(input);
-        if(bookL.isEmpty()){
+
+        List<Book> books= bookService.getBookListByUid(input);
+        if(books.isEmpty()){
             System.out.println("no book like that");
-            fixMemberInfo();
+            fixBookInfo();
         }
 
         try {
-            bookService.modifyBookInfo(loginToken.getGrant(), bookL.get(0));
+            mainView.showBookList(books.subList(0, 1));
+            BookUpdateView bookUpdateView = new BookUpdateView(books.get(0));
+            Book bookInfo = bookUpdateView.execute();
+            bookService.modifyBookInfo(loginToken.getGrant(), bookInfo);
+            bookList = bookService.getBookList();
         }
         catch (Exception e){
             System.out.println("error at modify Book info " + e);
