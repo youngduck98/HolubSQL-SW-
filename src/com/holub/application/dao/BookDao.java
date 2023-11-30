@@ -2,6 +2,8 @@ package com.holub.application.dao;
 
 import com.holub.application.domain.book.Book;
 import com.holub.database.*;
+import com.holub.database.AggregationFunction.AggregationFunction;
+import com.holub.database.AggregationFunction.Max;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -89,7 +91,7 @@ public class BookDao extends Dao{
         };
         List<Object> row = TableUtil.makeTableToList(table.select(selector)).get(0);
         table.delete(selector);
-        table.insert(row);
+        table.insert(((Book)updateInfo).toList());
         saveTable();
         loadTable(table.name());
     }
@@ -127,6 +129,13 @@ public class BookDao extends Dao{
         }
         return ret;
     }
+    /*
+    public String getMaxValue(String colName){
+        Selector selector = new Selector.Adapter() {};
+        Table ret = table.select(selector, new String[]{colName});
+        table.applyAggregation(Arrays.asList(new AggregationFunction[]{new Max()})).rows();
+    }
+    */
 
     public Table returnTable() {
         return table;

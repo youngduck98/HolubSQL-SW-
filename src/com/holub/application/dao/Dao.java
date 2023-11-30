@@ -27,7 +27,7 @@ public abstract class Dao {
 
     public void sortTable(String[] callName, int[] asc){
         if(callName != null && asc != null) {
-            table.accept(new TableVisitorOrderBy(callName, asc));
+            table = table.accept(new TableVisitorOrderBy(callName, asc));
             System.out.println("sorted!");
             return;
         }

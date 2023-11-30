@@ -106,4 +106,9 @@ public class BookServiceImpl implements BookService {
         }
         return Grant.None;
     }
+    /*
+    public String getMaxValue(String colName){
+        bookDao.
+    }
+     */
 }
